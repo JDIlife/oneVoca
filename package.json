@@ -1,0 +1,19 @@
+{
+  "name": "onevoca",
+  "version": "1.0.0",
+  "description": "영단어 정리 웹",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JDIlife/oneVoca.git"
+  },
+  "author": "JDI",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JDIlife/oneVoca/issues"
+  },
+  "homepage": "https://github.com/JDIlife/oneVoca#readme"
+}
