@@ -2,10 +2,105 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/mainPage.css">
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <p>test</p>
+
+    <!-- 단어 검색창 -->
+    <div class="input-group mb-3">
+      <input id="wordInput" type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <button id="btn" class="btn btn-outline-secondary" type="button">Button</button>
+      </div>
+    </div>
+
+    <!-- 검색할 단어들을 모아놓은 div -->
+    <div id="wordsAreaWrapper">
+      <div id="wordsArea" style="width: 80%; height: 50vh; background-color: aqua;">
+        <table id="wordsTable" class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">1</th>
+              <th scope="col">2</th>
+              <th scope="col">3</th>
+              <th scope="col">4</th>
+              <th scope="col">5</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="container text-center">
+      <div class="row row-cols-5">
+        <div class="col">
+          <!-- 폴더 드롭다운 -->
+          <div class="Folder">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Folder 
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">기본폴더</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+          </div>
+        </div>
+        <div class="col">
+          <!-- 옵션 드롭다운 -->
+          <div class="Options">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Options
+            </button>
+            <ul class="dropdown-menu">
+            <div class="form-check-reverse form-switch">
+              <label class="form-check-label" for="flexSwitchCheckDefault">hide def</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+              </div>
+              <div class="form-check-reverse form-switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">hide example</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+              </div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col">
+          <button id="searchBtn" type="button" class="btn btn-outline-primary">-></button>
+        </div>
+
+        <div class="col">
+          <button id="downloadPdfBtn" type="button" class="btn btn-outline-primary">download pdf</body>
+        </div>
+
+      </div>
+
+    </div> 
+    
+
+
+    <script defer src="/javascripts/mainPage.js"></script>
+    <!-- 부트스트랩 드롭다운 쓰려면 popper 를 포함하고있는 bootstrap.bundle.min.js 를 포함시켜줘야한다 -->
+    <script src="/javascripts/bootstrap.bundle.min.js"></script>
   </body>
 </html>
