@@ -1,9 +1,12 @@
+// jsPDF 설정
+window.jsPDF = window.jspdf.jsPDF;
 
 // ========== UI 요소 지정 ========== //
 const input = document.getElementById("wordInput");
 const wordsInputBtn = document.getElementById("btn");
 const searchBtn = document.getElementById("searchBtn");
-const pdfDownloadBtn = document.getElementById("pdfDownloadBtn")
+const titleInput = document.getElementById("titleInput");
+const pdfDownloadBtn = document.getElementById("pdfDownloadBtn");
 
 const wordsArea = document.getElementById("wordsArea");
 let wordsTable = document.getElementById("wordsTable");
@@ -70,9 +73,9 @@ wordsInputBtn.addEventListener("click", wordsInput);
 
 // ================== 검색 결과 버튼 이벤트 설정 =================== //
 
-searchBtn.addEventListener('click', () => {
+searchBtn.addEventListener('click', async () => {
 
-    searchWords(wordsList);
+    let resultList = await searchWords(wordsList);
 
     // 입력된 단어 테이블 초기화
     wordsList = [];
@@ -86,22 +89,94 @@ searchBtn.addEventListener('click', () => {
 
 });
 
+// let resultList = new Array();
+
 async function searchWords(wordsList){
     let url = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+    // 사용자가 삭제한 단어는 배열에서 제외한다
+    wordsList = wordsList.filter(word => word !== '');
 
+    let resultList = new Array();
     // 전달받은 wordsList 안에 있는 단어들을 for 문으로 반복해서 api 요청해서 데이터를 받아온다
-    for(let i = 0; i < wordsList.length; i++){
-        fetch(url+wordsList[i])
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => {
-                console.log(data)
-            })
+    for (let word of wordsList){
+        const res = await fetch(url + word);
+        const data = await res.json();
+        resultList.push(data[0])
     }
-
+  
+    return resultList;
  }
 
-pdfDownloadBtn.addEventListener('click', () => {
+pdfDownloadBtn.addEventListener('click', async () => {
 
+    let resultList = await searchWords(wordsList);
+
+    let title = titleInput.value; // 사용자가 입력한 제목
+    console.log(resultList);
+
+    let doc = new jsPDF('p', 'in', 'a4');
+    doc.setFontSize(12);
+    
+    let maxVerticalOffset = 11.5; // a4 최대 y 축 길이 (inch)
+    let currentVerticalOffset = 0.5; // y축 기준
+    let lMargin = 0.5;
+
+    for(let i = 0; i < resultList.length; i++) {
+
+        let word = resultList[i].word;
+        let meaningsLen = resultList[i].meanings.length;
+    
+        let remainingSpace = maxVerticalOffset - currentVerticalOffset;
+    
+        let textHeight = 0;
+    
+        doc.text(lMargin, currentVerticalOffset, word);
+    
+        for(let j = 0; j < meaningsLen; j++) {
+    
+            let defsLen = resultList[i].meanings[j].definitions.length;
+    
+            if(defsLen > 3) {
+                defsLen = 3;
+            }
+    
+            let partOfSpeech = resultList[i].meanings[j].partOfSpeech;
+    
+            doc.text(lMargin, currentVerticalOffset += 0.5, partOfSpeech);
+    
+            for(let k = 0; k < defsLen; k++) {
+    
+                let definition = resultList[i].meanings[j].definitions[k].definition;
+                let example = resultList[i].meanings[j].definitions[k].example;
+    
+                let defLines = doc.splitTextToSize(definition, 7.25);
+                let exLines = doc.splitTextToSize(example, 7);
+    
+                let wordHeight = (defLines.length + 1 + exLines.length + 1) * 12 / 72;
+    
+                if (wordHeight > remainingSpace) {
+                    doc.addPage();
+                    currentVerticalOffset = 0.5;
+                    remainingSpace = maxVerticalOffset - currentVerticalOffset;
+                }
+    
+                doc.text(lMargin, currentVerticalOffset += 0.3 + 12 / 72, defLines);
+                doc.text(lMargin, currentVerticalOffset += (defLines.length + 0.5) * 12 / 72, exLines);
+    
+                textHeight += (defLines.length + 1 + exLines.length + 1) * 12 / 72;
+    
+                remainingSpace = maxVerticalOffset - currentVerticalOffset;
+            }
+        }
+    
+        currentVerticalOffset += 0.5;
+    
+        if (textHeight > remainingSpace) {
+            doc.addPage();
+            currentVerticalOffset = 0.5;
+        }
+    }
+    
+    doc.save("test.pdf");
+     
 })
