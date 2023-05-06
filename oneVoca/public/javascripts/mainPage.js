@@ -109,74 +109,29 @@ async function searchWords(wordsList){
 
 pdfDownloadBtn.addEventListener('click', async () => {
 
-    let resultList = await searchWords(wordsList);
+    // form 생성
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/generate-pdf";
 
-    let title = titleInput.value; // 사용자가 입력한 제목
-    console.log(resultList);
+    // hidden input 추가
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "wordsList";
 
-    let doc = new jsPDF('p', 'in', 'a4');
-    doc.setFontSize(12);
-    
-    let maxVerticalOffset = 11.5; // a4 최대 y 축 길이 (inch)
-    let currentVerticalOffset = 0.5; // y축 기준
-    let lMargin = 0.5;
 
-    for(let i = 0; i < resultList.length; i++) {
+    // wordsList 배열의 첫 번째 요소로 사용자가 titleInput 에 입력한 제목을 넣어준다
+    wordsList.unshift(titleInput.value);
 
-        let word = resultList[i].word;
-        let meaningsLen = resultList[i].meanings.length;
-    
-        let remainingSpace = maxVerticalOffset - currentVerticalOffset;
-    
-        let textHeight = 0;
-    
-        doc.text(lMargin, currentVerticalOffset, word);
-    
-        for(let j = 0; j < meaningsLen; j++) {
-    
-            let defsLen = resultList[i].meanings[j].definitions.length;
-    
-            if(defsLen > 3) {
-                defsLen = 3;
-            }
-    
-            let partOfSpeech = resultList[i].meanings[j].partOfSpeech;
-    
-            doc.text(lMargin, currentVerticalOffset += 0.5, partOfSpeech);
-    
-            for(let k = 0; k < defsLen; k++) {
-    
-                let definition = resultList[i].meanings[j].definitions[k].definition;
-                let example = resultList[i].meanings[j].definitions[k].example;
-    
-                let defLines = doc.splitTextToSize(definition, 7.25);
-                let exLines = doc.splitTextToSize(example, 7);
-    
-                let wordHeight = (defLines.length + 1 + exLines.length + 1) * 12 / 72;
-    
-                if (wordHeight > remainingSpace) {
-                    doc.addPage();
-                    currentVerticalOffset = 0.5;
-                    remainingSpace = maxVerticalOffset - currentVerticalOffset;
-                }
-    
-                doc.text(lMargin, currentVerticalOffset += 0.3 + 12 / 72, defLines);
-                doc.text(lMargin, currentVerticalOffset += (defLines.length + 0.5) * 12 / 72, exLines);
-    
-                textHeight += (defLines.length + 1 + exLines.length + 1) * 12 / 72;
-    
-                remainingSpace = maxVerticalOffset - currentVerticalOffset;
-            }
-        }
-    
-        currentVerticalOffset += 0.5;
-    
-        if (textHeight > remainingSpace) {
-            doc.addPage();
-            currentVerticalOffset = 0.5;
-        }
-    }
-    
-    doc.save("test.pdf");
+    input.value = JSON.stringify(wordsList);
+
+    // form 에 input 추가
+    form.appendChild(input);
+
+    // form 을 body에 추가하고 submit
+    document.body.appendChild(form);
+    form.submit();
+
+    titleInput.value = null;
      
 })

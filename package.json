@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/JDIlife/oneVoca/issues"
   },
-  "homepage": "https://github.com/JDIlife/oneVoca#readme"
+  "homepage": "https://github.com/JDIlife/oneVoca#readme",
+  "dependencies": {
+    "pdfkit": "^0.13.0"
+  }
 }
