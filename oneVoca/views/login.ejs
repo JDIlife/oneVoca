@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>login page</title>
+        <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    </head>
+    <body>
+        <p>login page</p>
+      <form>
+         <div class="mb-3">
+          <label for="userId" class="form-label">id</label>
+          <button type="button" class="btn btn-secondary">id 중복확인</button>
+          <input type="text" class="form-control" id="userId">
+        </div>
+
+        <div class="mb-3">
+          <label for="userPw" class="form-label">Password</label>
+          <input type="password" class="form-control" id="userPw">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="button" class="btn btn-primary" onclick="location.href = '/login/cancel'">Cancel</button>
+      </form>
+    </body>
+
+</html>

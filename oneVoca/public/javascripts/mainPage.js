@@ -2,6 +2,9 @@
 window.jsPDF = window.jspdf.jsPDF;
 
 // ========== UI 요소 지정 ========== //
+const signupBtn = document.getElementById("signupBtn");
+const loginBtn = document.getElementById("loginBtn");
+
 const input = document.getElementById("wordInput");
 const wordsInputBtn = document.getElementById("btn");
 const searchBtn = document.getElementById("searchBtn");
@@ -11,6 +14,14 @@ const pdfDownloadBtn = document.getElementById("pdfDownloadBtn");
 const wordsArea = document.getElementById("wordsArea");
 let wordsTable = document.getElementById("wordsTable");
 let tbody = wordsTable.children[1];
+
+// ===================== 회원가입 기능 ======================= //
+
+
+// ===================== 로그인 기능 ========================= //
+
+
+
 
 
 // ===================== 사용자에게 단어를 입력받아 테이블에 표현해주는 부분 ================== // 
@@ -89,8 +100,7 @@ searchBtn.addEventListener('click', async () => {
 
 });
 
-// let resultList = new Array();
-
+ // 단어를 검색기 위해 사전 api 를 호출해서 결과를 받는 함수
 async function searchWords(wordsList){
     let url = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
     // 사용자가 삭제한 단어는 배열에서 제외한다
@@ -101,7 +111,10 @@ async function searchWords(wordsList){
     for (let word of wordsList){
         const res = await fetch(url + word);
         const data = await res.json();
-        resultList.push(data[0])
+        if(data[0] == undefined){ // 만약 사용자가 오타를 냈거나, dictionary api 에 없는 단어를 검색했다면, resultList 에 추가하지 않고 건너뛴다
+            continue;
+        }
+        resultList.push(data[0]);
     }
   
     return resultList;

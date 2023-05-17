@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>sign up page</title>
+        <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    </head>
+    <body>
+       <p>register page</p> 
+       <form>
+         <div class="mb-3">
+          <label for="userId" class="form-label">id</label>
+          <button type="button" class="btn btn-secondary">id 중복확인</button>
+          <input type="text" class="form-control" id="userId">
+        </div>
+
+        <div class="mb-3">
+          <label for="userPw" class="form-label">Password</label>
+          <input type="password" class="form-control" id="userPw">
+        </div>
+
+        <div class="mb-3">
+          <label for="userPwConfirm" class="form-label">Password 재입력</label>
+          <input type="password" class="form-control" id="userPwConfirm">
+        </div>
+        
+        <div class="mb-3">
+          <label for="userEmail" class="form-label">Email address</label>
+          <button type="button" class="btn btn-secondary">email 확인</button>
+          <input type="email" class="form-control" id="userEmail" aria-describedby="userEamil">
+          <div id="emailHelp" class="form-text"></div>
+        </div>
+
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">사용 약관에 동의합니다</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" onclick="location.href = '/register/cancel'">Cancel</button>
+      </form>
+      <p>이미 계정을 가지고 계신가요? 지금 로그인하기</p>
+    </body>
+
+</html>

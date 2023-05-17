@@ -8,11 +8,14 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <div id="loginDiv">
+      <button id="signupBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/register'">sign up</body>
+      <button id="loginBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login'">login</body>
+    </div>
     <p>test</p>
-
     <!-- 단어 검색창 -->
     <div class="input-group mb-3">
-      <input id="wordInput" type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <input id="wordInput" type="text" class="form-control" placeholder="insert word" aria-label="insert word" aria-describedby="basic-addon2">
       <div class="input-group-append">
         <button id="btn" class="btn btn-outline-secondary" type="button">Button</button>
       </div>

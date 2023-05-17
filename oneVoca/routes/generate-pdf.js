@@ -11,6 +11,7 @@ var router = express.Router();
 
 /* post home page. */
 router.post('/', async function(req, res) {
+    
     const wordsList = JSON.parse(req.body.wordsList);
 
     const doc = new PDFDocument;
@@ -28,7 +29,7 @@ router.post('/', async function(req, res) {
 
     let resultList = await searchWords(wordsList);
 
-    for(let i = 1; i < resultList.length; i++){ // pdf 제목을 제외한 단어 부분을 출력한다
+    for(let i = 0; i < resultList.length; i++){ // pdf 제목을 제외한 단어 부분을 출력한다
         doc.moveDown();
 
         // 단어 출력
@@ -82,7 +83,10 @@ async function searchWords(wordsList){
     for (let word of wordsList){
         const res = await fetch(url + word);
         const data = await res.json();
-        resultList.push(data[0])
+        if(data[0] == undefined){ // 만약 사용자가 오타를 냈거나, dictionary api 에 없는 단어를 검색했다면, resultList 에 추가하지 않고 건너뛴다
+            continue;
+        }
+        resultList.push(data[0]);
     }
   
     return resultList;
