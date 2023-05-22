@@ -6,27 +6,27 @@
     </head>
     <body>
        <p>register page</p> 
-       <form>
+       <form method="post" action="/register">
          <div class="mb-3">
           <label for="userId" class="form-label">id</label>
           <button type="button" class="btn btn-secondary">id 중복확인</button>
-          <input type="text" class="form-control" id="userId">
+          <input type="text" class="form-control" id="userId" name="userId">
         </div>
 
         <div class="mb-3">
           <label for="userPw" class="form-label">Password</label>
-          <input type="password" class="form-control" id="userPw">
+          <input type="password" class="form-control" id="userPw" name="userPw">
         </div>
 
         <div class="mb-3">
           <label for="userPwConfirm" class="form-label">Password 재입력</label>
-          <input type="password" class="form-control" id="userPwConfirm">
+          <input type="password" class="form-control" id="userPwConfirm" name="userPwConfirm">
         </div>
         
         <div class="mb-3">
           <label for="userEmail" class="form-label">Email address</label>
           <button type="button" class="btn btn-secondary">email 확인</button>
-          <input type="email" class="form-control" id="userEmail" aria-describedby="userEamil">
+          <input type="email" class="form-control" id="userEmail" aria-describedby="userEamil" name="userEmail">
           <div id="emailHelp" class="form-text"></div>
         </div>
 
