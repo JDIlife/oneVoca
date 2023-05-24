@@ -15,14 +15,6 @@ const wordsArea = document.getElementById("wordsArea");
 let wordsTable = document.getElementById("wordsTable");
 let tbody = wordsTable.children[1];
 
-// ===================== 회원가입 기능 ======================= //
-
-
-// ===================== 로그인 기능 ========================= //
-
-
-
-
 
 // ===================== 사용자에게 단어를 입력받아 테이블에 표현해주는 부분 ================== // 
 

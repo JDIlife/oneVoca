@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const crypto = require('crypto');
 
 // db 연결 객체를 불러온다
 const connection = require('../db');
@@ -19,17 +20,25 @@ router.post('/', (req, res) => {
     return;
   }
 
-  // 회원가입 정보를 DB에 저장하는 쿼리 실행
-  const query = 'INSERT INTO user (user_id, user_pw, user_email) VALUES (?, ?, ?)';
-  connection.query(query, [userId, userPw, userEmail], (err, result) => {
-    if(err) {
-      console.error('Error inserting user: ', err);
-      res.status(500).send('Failed to register user');
-      return;
-    } else {
-      console.log('User registered successfully: ', result);
-      res.status(200).send('Registration successful');
-    }
+  // 보안을 위해 추가할 salt 값을 생성한다
+  const salt = crypto.randomBytes(64);
+
+  // 사용자의 비밀번호를 해시함수로 암호화한다
+  crypto.pbkdf2(userPw, salt, 163023, 64, 'sha512', (err, key) => {
+    const hashedPw = key.toString('base64');
+
+    // 회원가입 정보를 DB에 저장하는 쿼리 실행
+    const query = 'INSERT INTO user (user_id, user_pw, user_email, salt) VALUES (?, ?, ?, ?)';
+    connection.query(query, [userId, hashedPw, userEmail, salt], (err, result) => {
+      if(err) {
+        console.error('Error inserting user: ', err);
+        res.status(500).send('Failed to register user');
+        return;
+      } else {
+        console.log('User registered successfully: ', result);
+        res.status(200).send('Registration successful');
+      }
+    }); 
   });
 
 });

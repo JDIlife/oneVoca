@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>oneVoca</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/mainPage.css">
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div>
+      oneVoca
+    </div>
+    <div><%= loggedIn %></div>
+    <% if(!loggedIn) { %>
     <div id="loginDiv">
       <button id="signupBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/register'">sign up</body>
       <button id="loginBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login'">login</body>
     </div>
+    <% } else { %>
+      <div>
+        <button id="myPageBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/users/<%= userId %>'">mypage</body>
+        <button id="logoutBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login/logout'">logout</body>
+      </div>
+    <% } %>
     <p>test</p>
     <!-- 단어 검색창 -->
     <div class="input-group mb-3">
