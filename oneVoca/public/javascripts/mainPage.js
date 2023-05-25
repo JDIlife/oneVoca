@@ -15,6 +15,25 @@ const wordsArea = document.getElementById("wordsArea");
 let wordsTable = document.getElementById("wordsTable");
 let tbody = wordsTable.children[1];
 
+let dropdownBtn = document.getElementById('dropdownBtn');
+
+document.addEventListener('DOMContentLoaded', function() {
+    let dropdownItems = document.getElementsByClassName('dropdown-item');
+  
+    for (var i = 0; i < dropdownItems.length; i++) {
+      dropdownItems[i].addEventListener('click', function(event) {
+        event.preventDefault();
+  
+        var selectedOption = this.innerText; // Get the selected option
+        
+  
+        // Update the main button's content with the selected option
+        dropdownBtn.innerText = selectedOption;
+      });
+    }
+  });
+
+
 
 // ===================== 사용자에게 단어를 입력받아 테이블에 표현해주는 부분 ================== // 
 
@@ -80,6 +99,36 @@ searchBtn.addEventListener('click', async () => {
 
     let resultList = await searchWords(wordsList);
 
+    console.log(resultList);
+
+    // form 생성
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/store-result";
+
+    // hidden input 추가
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "wordsList";
+
+
+    // wordsList 배열의 두 번째 요소로 사용자가 titleInput 에 입력한 제목을 넣어준다
+    wordsList.unshift(titleInput.value);
+    // wordsList 배열의 첫 번째 요소로 사용자가 지정한 폴더의 이름을 넣어준다
+    wordsList.unshift(dropdownBtn.innerText);
+
+    input.value = JSON.stringify(wordsList);
+
+    // form 에 input 추가
+    form.appendChild(input);
+
+    // form 을 body에 추가하고 submit
+    document.body.appendChild(form);
+    form.submit();
+
+    titleInput.value = null;
+ 
+
     // 입력된 단어 테이블 초기화
     wordsList = [];
 
@@ -112,6 +161,7 @@ async function searchWords(wordsList){
     return resultList;
  }
 
+ // ============ pdf 다운로드 버튼 이벤트 설정 ============= //
 pdfDownloadBtn.addEventListener('click', async () => {
 
     // form 생성

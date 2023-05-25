@@ -36,7 +36,8 @@ router.post('/', function(req, res, next) {
 
       // 해당하는 id 가 없는 경우
       if(result.length === 0){
-        return res.send('해당 id를 가진 사용자를 찾을 수 없습니다');
+        // 사용자에게 alert 를 띄워주고 메인 페이지로 돌아온다
+        return res.render('alert', {error: "해당 id를 가진 사용자를 찾을 수 없습니다"});
       }
 
       // 해당하는 id 가 있는 경우
@@ -50,7 +51,7 @@ router.post('/', function(req, res, next) {
         const hashedPw = key.toString('base64');
 
         if(hashedPw !== user.user_pw){
-          return res.send('비밀번호가 일치하지 않습니다');
+          return res.render('alert', {error: "비밀번호가 일치하지 않습니다"});
         }
 
         console.log('로그인 성공!');

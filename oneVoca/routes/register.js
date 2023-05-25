@@ -34,11 +34,25 @@ router.post('/', (req, res) => {
         console.error('Error inserting user: ', err);
         res.status(500).send('Failed to register user');
         return;
-      } else {
-        console.log('User registered successfully: ', result);
+      } 
+
+      console.log('User registered successfully: ');
+
+      let newMemberId = result.insertId;
+
+      // 회원가입과 동시에 새로운 사용자에게 기본폴더를 생성해준다
+      const folderQuery = 'INSERT INTO user_folder (folder_name, member_id) VALUES (?, ?)';
+      connection.query(folderQuery, ['normal', newMemberId], (err, result) => {
+        if (err) {
+          console.error('Error creating default folder:', err);
+          res.status(500).send('Failed to create normal folder');
+          return;
+        }
+
         res.status(200).send('Registration successful');
-      }
+      });
     }); 
+
   });
 
 });

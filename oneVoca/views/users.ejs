@@ -13,18 +13,58 @@
     <div id="wrapper">
         <nav>
             <div>
-                <button type="button" class="btn btn-outline-primary">Primary</button>
+                <button type="button" class="btn btn-outline-primary" id="addFolderBtn">add folder</button>
             </div>
-
+            <div class="list-group" id="folder">
+              <button type="button" class="list-group-item list-group-item-action">
+                The current button
+              </button>
+              <button type="button" class="list-group-item list-group-item-action">A second button item</button>
+              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+            </div>
 
         </nav>
 
         <section>
             <div>section</div>
+            <p>
+              <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Button with data-bs-target
+              </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+              </div>
+            </div>
         </section>
 
         <aside>
             <div>aside</div>
+            <ol class="list-group list-group-numbered">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Subheading</div>
+                  Content for list item
+                </div>
+                <span class="badge bg-primary rounded-pill">14</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Subheading</div>
+                  Content for list item
+                </div>
+                <span class="badge bg-primary rounded-pill">14</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Subheading</div>
+                  Content for list item
+                </div>
+                <span class="badge bg-primary rounded-pill">14</span>
+              </li>
+            </ol>
         </aside>
     </div>
     

@@ -6,10 +6,9 @@
     <link rel="stylesheet" href="/stylesheets/mainPage.css">
   </head>
   <body>
-    <div>
+    <header>
       oneVoca
-    </div>
-    <div><%= loggedIn %></div>
+    </header>
     <% if(!loggedIn) { %>
     <div id="loginDiv">
       <button id="signupBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/register'">sign up</body>
@@ -55,11 +54,11 @@
         <div class="col">
           <!-- 폴더 드롭다운 -->
           <div class="Folder">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle" id="dropdownBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Folder 
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">기본폴더</a></li>
+              <li><a class="dropdown-item" href="#">normal</a></li>
               <li><a class="dropdown-item" href="#">Another action</a></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
@@ -89,10 +88,12 @@
           </div>
         </div>
 
+        <!-- 검색 버튼 -->
         <div class="col">
           <button id="searchBtn" type="button" class="btn btn-outline-primary">-></button>
         </div>
 
+        <!-- pdf 다운로드 버튼 -->
         <div class="col">
           <button id="pdfDownloadBtn" type="button" class="btn btn-outline-primary">download pdf</body>
         </div>

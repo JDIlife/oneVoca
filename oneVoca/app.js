@@ -12,6 +12,7 @@ var usersRouter = require('./routes/users');
 let pdfRouter = require('./routes/generate-pdf');
 let registerRouter = require('./routes/register');
 let loginRouter = require('./routes/login');
+let storeRouter = require('./routes/store-result');
 
 
 var app = express();
@@ -55,6 +56,7 @@ app.use('/users', usersRouter);
 app.use('/generate-pdf', pdfRouter); // pdf 생성 post 라우팅 추가
 app.use('/register', registerRouter); // 회원가입 라우팅 추가
 app.use('/login', loginRouter); // 로그인 라우팅 추가
+app.use('/store-result', storeRouter); // 검색 결과 저장 라우팅 추가
 
 
 // catch 404 and forward to error handler
