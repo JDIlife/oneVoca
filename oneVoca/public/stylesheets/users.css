@@ -24,3 +24,23 @@ aside{
     height: 90vh;
     background-color: green;
 }
+
+.word{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.partOfSpeech{
+    font-size: 14px;
+    color: gray;
+}
+
+.definition{
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.example{
+    font-size: 14px;
+    margin-bottom: 8px;
+}

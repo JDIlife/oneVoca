@@ -16,6 +16,8 @@ router.post('/', async function(req, res) {
     if(!req.session.isLoggedIn){ // 로그인하지 않고 접근한 경우
         console.log("비로그인 사용자입니다");
     }
+
+    const uid = req.session.uid;
     
     const wordsList = JSON.parse(req.body.wordsList);
 
@@ -29,8 +31,8 @@ router.post('/', async function(req, res) {
     let resultList = await searchWords(wordsList);
 
     // 폴더의 이름에 맞는 폴더 id 를 가져온다
-    const folderIdQuery = 'SELECT folder_id From user_folder WHERE folder_name = ?'
-    connection.query(folderIdQuery, [folderName], (err, result) => {
+    const folderIdQuery = 'SELECT folder_id From user_folder WHERE folder_name = ? AND member_id = ?' // member id 가 가지고 있는 folder 만 가져와야됨
+    connection.query(folderIdQuery, [folderName, uid], (err, result) => {
         if(err){
             res.status(500);
         }
@@ -38,7 +40,7 @@ router.post('/', async function(req, res) {
         const folderId = result[0].folder_id;
 
         // 가져온 폴더 id 를 대체키로 title과 연결한다
-        const titleQuery = 'INSERT INTO result_title (title_name, folder_id) VALUE (?, ?)';
+        const titleQuery = 'INSERT INTO result_title (title_name, folder_id) VALUE (?, ?)'; 
         connection.query(titleQuery, [fileName, folderId], (err, result) => {
             if(err){
                 res.status(500);
@@ -52,6 +54,7 @@ router.post('/', async function(req, res) {
             for(let i = 0; i < resultList.length; i++){
                 let word = resultList[i].word;
                 let resultData = JSON.stringify(resultList[i]); 
+                console.log("resultList[i] type: ", typeof(resultList[i]));
                 connection.query(wordsQuery, [titleId, word, resultData], (err, result) => {
                     if(err){
                         res.status(500);

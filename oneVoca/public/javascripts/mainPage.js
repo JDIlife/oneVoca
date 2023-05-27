@@ -17,6 +17,7 @@ let tbody = wordsTable.children[1];
 
 let dropdownBtn = document.getElementById('dropdownBtn');
 
+// 드롭다운 메뉴를 클릭하면 해당 드롭다운 메뉴의 텍스트로 드롭다운 버튼의 텍스트가 변경된다
 document.addEventListener('DOMContentLoaded', function() {
     let dropdownItems = document.getElementsByClassName('dropdown-item');
   
@@ -24,10 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
       dropdownItems[i].addEventListener('click', function(event) {
         event.preventDefault();
   
-        var selectedOption = this.innerText; // Get the selected option
+        var selectedOption = this.innerText; // 선택된 옵션의 텍스트를 가져온다
         
   
-        // Update the main button's content with the selected option
+        // 드롭다운버튼의 텍스트를 선택된 옵션의 텍스트로 변경한다
         dropdownBtn.innerText = selectedOption;
       });
     }

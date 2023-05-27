@@ -16,28 +16,75 @@
                 <button type="button" class="btn btn-outline-primary" id="addFolderBtn">add folder</button>
             </div>
             <div class="list-group" id="folder">
-              <button type="button" class="list-group-item list-group-item-action">
-                The current button
-              </button>
-              <button type="button" class="list-group-item list-group-item-action">A second button item</button>
-              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+              <!-- 사용자가 가진 폴더의 수만큼 반복한다 -->
+              <% for(let i = 0; i < folderRows.length; i++) { %>
+                <p>
+                  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#folder<%=folderRows[i].folder_id%>" aria-expanded="false" aria-controls="collapseWidthExample">
+                    <%=folderRows[i].folder_name%>
+                  </button>
+                </p>
+              <% } %>
             </div>
 
         </nav>
 
         <section>
             <div>section</div>
-            <p>
-              <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Button with data-bs-target
-              </button>
-            </p>
-            <div class="collapse" id="collapseExample">
-              <div class="card card-body">
-                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+            <% for(let i = 0; i < folderRows.length; i++) { %>
+              <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
+                <div class="card card-body" style="width: 60vw;">
+                  <% for(let j = 0; j < titleRowsResult[i].length; j++) { %>
+                    <p>
+                      <p></p>
+                      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=titleRowsResult[i][j].title_id%>" aria-expanded="false" aria-controls="collapseExample">
+                        <%=titleRowsResult[i][j].title_name%>
+                      </button>
+                    </p>
+                    <div class="collapse" id="collapse<%=titleRowsResult[i][j].title_id%>">
+                      <div class="card card-body">
+                          <% for(let k = 0; k < wordRowsResult[j].length; k++) { %>
+                            <p class="word">
+                              <%= wordRowsResult[j][k].word%>
+                            </p>
+
+                              <% for(let l = 0; l < wordRowsResult[j][k].result.meanings.length; l++) { %>
+                                <p class="partOfSpeech">
+                                  <%= wordRowsResult[j][k].result.meanings[l].partOfSpeech%>
+                                </p>
+
+                                <!-- 만약 한 품사에 뜻이 3개 이상이면 최대 뜻 개수를 3개로 정한다 -->
+                                <% let defLens; %>
+                                <% if(wordRowsResult[j][k].result.meanings[l].definitions.length > 3) { %>
+                                  <% defLens = 3 %>
+                                <% } else { %>
+                                  <% defLens = wordRowsResult[j][k].result.meanings[l].definitions.length %>
+                                <% } %> 
+
+                                <ol>
+                                  <% for(let m = 0; m < defLens; m++) { %>
+                                    <li class="definition">
+                                      <%= wordRowsResult[j][k].result.meanings[l].definitions[m].definition%>
+                                    </li>
+                                    <ul>
+                                      <% if(wordRowsResult[j][k].result.meanings[l].definitions[m].example != undefined) { %>
+                                        <li class="example">
+                                          <%= wordRowsResult[j][k].result.meanings[l].definitions[m].example%>
+                                        </li>
+                                      <% } %>
+                                    </ul>
+                                  <% } %>
+                                </ol>
+                              <% } %>
+                          <% } %>
+
+                      </div>
+                    </div>
+                  <% } %>   
+
+                </div>
               </div>
-            </div>
+            <% } %>
+
         </section>
 
         <aside>
