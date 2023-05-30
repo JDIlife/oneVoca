@@ -20,7 +20,6 @@
         <button id="logoutBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login/logout'">logout</body>
       </div>
     <% } %>
-    <p>test</p>
     <!-- 단어 검색창 -->
     <div class="input-group mb-3">
       <input id="wordInput" type="text" class="form-control" placeholder="insert word" aria-label="insert word" aria-describedby="basic-addon2">
@@ -57,11 +56,16 @@
             <button class="btn btn-secondary dropdown-toggle" id="dropdownBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Folder 
             </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">normal</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+
+            <% if(loggedIn) { %>
+              <ul class="dropdown-menu">
+                  <% for(let i = 0; i < folderRows.length; i++) { %>
+                    <li><a class="dropdown-item" href="#"><%=folderRows[i].folder_name%></a></li>
+                  <% } %>
+                  
+                </ul>
+              <% } %>
+
           </div>
         </div>
         <div class="col">

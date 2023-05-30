@@ -8,12 +8,45 @@
   <body>
     <header>
         개인페이지 헤더
+        <div>
+          <button id="logoutBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login/logout'">logout</body>
+        </div>
     </header>
 
     <div id="wrapper">
         <nav>
             <div>
-                <button type="button" class="btn btn-outline-primary" id="addFolderBtn">add folder</button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  add folder
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">폴더 제목을 입력하세요</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+
+                      <!-- 사용자가 생성한 폴더를 데이터베이스에 저장하기 위한 form -->
+                      <form action="/store-folder" method="post" id="folderForm">
+                        <div class="modal-body">
+                          <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" id="folderNameInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="folderName">
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary" id="folderSubmitBtn">Save</button>
+                        </div>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
             </div>
             <div class="list-group" id="folder">
               <!-- 사용자가 가진 폴더의 수만큼 반복한다 -->
@@ -29,7 +62,6 @@
         </nav>
 
         <section>
-            <div>section</div>
             <% for(let i = 0; i < folderRows.length; i++) { %>
               <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
                 <div class="card card-body" style="width: 60vw;">
@@ -88,30 +120,32 @@
         </section>
 
         <aside>
-            <div>aside</div>
-            <ol class="list-group list-group-numbered">
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Subheading</div>
-                  Content for list item
+            <% for(let i = 0; i < folderRows.length; i ++) { %>
+              <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
+                <div class="card card-body" style="width: 20vw;">
+                  <ol class="list-group list-group-numbered">
+                    <% let dupLen; %>
+                    <% if(dupWords[i].length < 10) { %>
+                      <% dupLen = dupWords[i].length %>
+                    <% } else { %>
+                      <% dupLen = 10 %>
+                    <% } %>
+
+                    <% for(let j = 0; j < dupLen; j++) { %>
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                          <div class="fw-bold"><%= dupWords[i][j].word %></div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill"><%= dupWords[i][j].count %></span>
+                      </li>
+                    <% } %>
+
+                  </ol> 
                 </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Subheading</div>
-                  Content for list item
-                </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Subheading</div>
-                  Content for list item
-                </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-              </li>
-            </ol>
+              </div>
+            
+            <% } %>
+            
         </aside>
     </div>
     

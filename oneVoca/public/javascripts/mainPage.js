@@ -100,8 +100,6 @@ searchBtn.addEventListener('click', async () => {
 
     let resultList = await searchWords(wordsList);
 
-    console.log(resultList);
-
     // form 생성
     const form = document.createElement("form");
     form.method = "POST";
@@ -114,6 +112,20 @@ searchBtn.addEventListener('click', async () => {
 
 
     // wordsList 배열의 두 번째 요소로 사용자가 titleInput 에 입력한 제목을 넣어준다
+    // if(titleInput.innerText.trim() == ''){
+    //     const date = new Date();
+        
+    //     let year = date.toLocaleDateString('default', {year: "numeric"});
+    //     let month = date.toLocaleDateString('default', {month: "2-digit"});
+    //     let day = date.toLocaleDateString('default', {day: "2-digit"});
+    //     let hour = date.toLocaleDateString('default', {hour: "2-digit"});
+    //     let minute = date.toLocaleDateString('default', {minute: "2-digit"});
+
+    //     let today = year + "/" + month + "/" + day + "/" + " " + hour + ":"+ minute;
+
+    //     console.log(today);
+    //     wordsList.unshift(today);
+    // } 
     wordsList.unshift(titleInput.value);
     // wordsList 배열의 첫 번째 요소로 사용자가 지정한 폴더의 이름을 넣어준다
     wordsList.unshift(dropdownBtn.innerText);
@@ -126,6 +138,8 @@ searchBtn.addEventListener('click', async () => {
     // form 을 body에 추가하고 submit
     document.body.appendChild(form);
     form.submit();
+
+    console.log(wordsList)
 
     titleInput.value = null;
  

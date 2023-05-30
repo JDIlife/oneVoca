@@ -54,8 +54,6 @@ router.post('/', function(req, res, next) {
           return res.render('alert', {error: "비밀번호가 일치하지 않습니다"});
         }
 
-        console.log('로그인 성공!');
-
         // 로그인 상태에 대한 세션 쿠키를 설정한다
         req.session.uid = user.id;
         req.session.userId = user.user_id;

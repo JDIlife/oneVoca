@@ -30,42 +30,33 @@ router.post('/', async function(req, res) {
     // 검색 결과를 받는다
     let resultList = await searchWords(wordsList);
 
-    // 폴더의 이름에 맞는 폴더 id 를 가져온다
-    const folderIdQuery = 'SELECT folder_id From user_folder WHERE folder_name = ? AND member_id = ?' // member id 가 가지고 있는 folder 만 가져와야됨
-    connection.query(folderIdQuery, [folderName, uid], (err, result) => {
-        if(err){
-            res.status(500);
+    // 사용자 데이터베이스에 검색 결과 저장
+    try{
+        // 사용자가 입력한 폴더 제목과 사용자가 가진 폴더 제목과 일치하는 폴더의 id 를 가져온다
+        const folderIdQuery = 'SELECT folder_id From user_folder WHERE folder_name = ? AND member_id = ?' // member id 가 가지고 있는 folder 만 가져와야됨
+        const [folderRows] = await connection.promise().query(folderIdQuery, [folderName, uid]);
+
+        const folderId = folderRows[0].folder_id;
+
+        // 사용자가 입력한 제목을 저장한다
+        const titleQuery = 'INSERT INTO result_title (title_name, folder_id) VALUE (?, ?)'; 
+        const [titleRows] = await connection.promise().query(titleQuery, [fileName, folderId]);
+
+        const titleId = titleRows.insertId;
+
+        // 사용자의 단어 검색 결과를 저장한다
+        const wordsQuery = 'INSERT INTO result (title_id, word, result, folder_id) VALUE (?, ?, ?, ?) ';
+        for(data of resultList){
+            let word = data.word;
+            let resultData = JSON.stringify(data);
+            await connection.promise().query(wordsQuery, [titleId, word, resultData, folderId]);
         }
 
-        const folderId = result[0].folder_id;
+        res.redirect('/');
 
-        // 가져온 폴더 id 를 대체키로 title과 연결한다
-        const titleQuery = 'INSERT INTO result_title (title_name, folder_id) VALUE (?, ?)'; 
-        connection.query(titleQuery, [fileName, folderId], (err, result) => {
-            if(err){
-                res.status(500);
-                return;
-            }
-
-            let titleId = result.insertId;
-
-            // 단어 검색 결과를 result 테이블에 저장한다
-            const wordsQuery = 'INSERT INTO result (title_id, word, result) VALUE (?, ?, ?) ';
-            for(let i = 0; i < resultList.length; i++){
-                let word = resultList[i].word;
-                let resultData = JSON.stringify(resultList[i]); 
-                console.log("resultList[i] type: ", typeof(resultList[i]));
-                connection.query(wordsQuery, [titleId, word, resultData], (err, result) => {
-                    if(err){
-                        res.status(500);
-                        return;
-                    }
-
-                });
-            }
-            res.redirect('/');
-        });
-    });
+    } catch (err) {
+        res.status(500);
+    }
 
 });
 
