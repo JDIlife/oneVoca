@@ -11,6 +11,7 @@
         <div>
           <button id="logoutBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login/logout'">logout</body>
         </div>
+
     </header>
 
     <div id="wrapper">
@@ -48,11 +49,11 @@
                   </div>
                 </div>
             </div>
-            <div class="list-group" id="folder">
+            <div class="list-group folder-list-group" id="folder">
               <!-- 사용자가 가진 폴더의 수만큼 반복한다 -->
               <% for(let i = 0; i < folderRows.length; i++) { %>
                 <p>
-                  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#folder<%=folderRows[i].folder_id%>" aria-expanded="false" aria-controls="collapseWidthExample">
+                  <button class="btn btn-primary folder-btn" type="button" data-bs-toggle="collapse" data-bs-target="#folder<%=folderRows[i].folder_id%>" aria-expanded="false" aria-controls="collapseWidthExample">
                     <%=folderRows[i].folder_name%>
                   </button>
                 </p>
@@ -61,53 +62,73 @@
 
         </nav>
 
-        <section>
-            <% for(let i = 0; i < folderRows.length; i++) { %>
-              <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
-                <div class="card card-body" style="width: 60vw;">
-                  <% for(let j = 0; j < titleRowsResult[i].length; j++) { %>
+        <aside>
+          <% for(let i = 0; i < folderRows.length; i++) { %>
+            <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
+              <div class="card card-body title-collapse" style="width: 20vw;">
+                <% for(let j = 0; j < titleRowsResult[i].length; j++) { %>
                     <p>
                       <p></p>
-                      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=titleRowsResult[i][j].title_id%>" aria-expanded="false" aria-controls="collapseExample">
+                      <button class="btn btn-primary title-collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=titleRowsResult[i][j].title_id%>" aria-expanded="false" aria-controls="collapseExample">
                         <%=titleRowsResult[i][j].title_name%>
                       </button>
                     </p>
-                    <div class="collapse" id="collapse<%=titleRowsResult[i][j].title_id%>">
+                <% } %>
+
+              </div>
+
+            </div>
+
+          <% } %>
+        </aside>
+
+            
+
+        <section>
+            <% for(let i = 0; i < folderRows.length; i++) { %>
+              <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
+                <div class="card card-body word-div" style="width: 50vw;">
+                  <% for(let j = 0; j < titleRowsResult[i].length; j++) { %>
+                    <div class="collapse word-collapse" id="collapse<%=titleRowsResult[i][j].title_id%>">
                       <div class="card card-body">
-                          <% for(let k = 0; k < wordRowsResult[j].length; k++) { %>
-                            <p class="word">
-                              <%= wordRowsResult[j][k].word%>
-                            </p>
 
-                              <% for(let l = 0; l < wordRowsResult[j][k].result.meanings.length; l++) { %>
-                                <p class="partOfSpeech">
-                                  <%= wordRowsResult[j][k].result.meanings[l].partOfSpeech%>
-                                </p>
 
-                                <!-- 만약 한 품사에 뜻이 3개 이상이면 최대 뜻 개수를 3개로 정한다 -->
-                                <% let defLens; %>
-                                <% if(wordRowsResult[j][k].result.meanings[l].definitions.length > 3) { %>
-                                  <% defLens = 3 %>
-                                <% } else { %>
-                                  <% defLens = wordRowsResult[j][k].result.meanings[l].definitions.length %>
-                                <% } %> 
+                            <% for(let k = 0; k < wordRowsResult[j].length; k++) { %>
 
-                                <ol>
-                                  <% for(let m = 0; m < defLens; m++) { %>
-                                    <li class="definition">
-                                      <%= wordRowsResult[j][k].result.meanings[l].definitions[m].definition%>
-                                    </li>
-                                    <ul>
-                                      <% if(wordRowsResult[j][k].result.meanings[l].definitions[m].example != undefined) { %>
-                                        <li class="example">
-                                          <%= wordRowsResult[j][k].result.meanings[l].definitions[m].example%>
-                                        </li>
-                                      <% } %>
-                                    </ul>
-                                  <% } %>
-                                </ol>
-                              <% } %>
-                          <% } %>
+                                <h4 class="word" id="list-itme-<%= wordRowsResult[j][k].word_id %>">
+                                  <%= wordRowsResult[j][k].word%>
+                                </h4>
+                              
+                                <% for(let l = 0; l < wordRowsResult[j][k].result.meanings.length; l++) { %>
+                                  <p class="partOfSpeech">
+                                    <%= wordRowsResult[j][k].result.meanings[l].partOfSpeech%>
+                                  </p>
+
+                                  <!-- 만약 한 품사에 뜻이 3개 이상이면 최대 뜻 개수를 3개로 정한다 -->
+                                  <% let defLens; %>
+                                  <% if(wordRowsResult[j][k].result.meanings[l].definitions.length > 3) { %>
+                                    <% defLens = 3 %>
+                                  <% } else { %>
+                                    <% defLens = wordRowsResult[j][k].result.meanings[l].definitions.length %>
+                                  <% } %> 
+
+                                  <ol>
+                                    <% for(let m = 0; m < defLens; m++) { %>
+                                      <li class="definition">
+                                        <%= wordRowsResult[j][k].result.meanings[l].definitions[m].definition%>
+                                      </li>
+                                      <ul>
+                                        <% if(wordRowsResult[j][k].result.meanings[l].definitions[m].example != undefined) { %>
+                                          <li class="example">
+                                            <%= wordRowsResult[j][k].result.meanings[l].definitions[m].example%>
+                                          </li>
+                                        <% } %>
+                                      </ul>
+                                    <% } %>
+                                  </ol>
+                                <% } %>
+                            <% } %>
+
 
                       </div>
                     </div>
@@ -117,6 +138,9 @@
               </div>
             <% } %>
 
+
+
+         
         </section>
 
         <aside>
@@ -152,8 +176,8 @@
     
     <script defer type="module" src="/javascripts/usersPage.js"></script>
     <!-- cdn 링크로 jsPDF 사용 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- 부트스트랩 드롭다운 쓰려면 popper 를 포함하고있는 bootstrap.bundle.min.js 를 포함시켜줘야한다 -->
-    <script src="/javascripts/bootstrap.bundle.min.js"></script>
+    <script defer src="/javascripts/bootstrap.bundle.min.js"></script>
   </body>
 </html>

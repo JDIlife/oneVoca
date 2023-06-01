@@ -8,13 +8,13 @@ html, body{
 }
 
 nav{
-    width: 20vw;
+    width: 10vw;
     height: 90vh;
     background-color: blue;
 }
 
 section{
-    width: 60vw;
+    width: 50vw;
     height: 90vh;
     background-color: red;
 }
@@ -43,4 +43,23 @@ aside{
 .example{
     font-size: 14px;
     margin-bottom: 8px;
+}
+
+.word-div{
+    height: 90vh;
+    overflow-y: scroll;
+}
+
+.word-collapse{
+    transition: height 0.8s ease;
+}
+
+.title-collapse{
+    height: 90vh;
+    overflow-y: auto;
+}
+
+.folder-list-group{
+    height: 80vh;
+    overflow-y: auto;
 }

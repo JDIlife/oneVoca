@@ -54,9 +54,9 @@ router.get('/:userId', async function(req, res, next) {
       }
     }
 
-    let folderWordResult = [];
 
-    // 사용자 폴더별 단어 배열다 => [{word: '단어'}] 형식의 결과를 반환한다 
+    // 사용자 폴더별 단어 배열 => [{word: '단어'}] 형식의 결과를 반환한다 
+    let folderWordResult = [];
     const folderWordQuery = 'SELECT word FROM result WHERE folder_id = ?';
     for(let i = 0; i < folderRows.length; i++){ // i = 사용자가 가지고 있는 폴더의 개수
       let folderIds = folderRows[i].folder_id;
@@ -64,9 +64,9 @@ router.get('/:userId', async function(req, res, next) {
       folderWordResult.push(folderWords);
     }
 
-    let duplicatedWords = [];
 
     // 단어 검색 결과에서 단어만 모아서 배열을 만든다 (각 폴더에 있는 모든 단어 검색결과의 단어 모음) => [['단어1', '단어2'], ['단어3'], []] 형식의 결과를 반환한다
+    let duplicatedWords = [];
     for(let i = 0; i < folderWordResult.length; i++){ // i = 사용자가 가지고 있는 폴더의 개수
       let arr = [];
       for(let j = 0; j < folderWordResult[i].length; j++){ // j = 폴더각 있는 단어의 개수
@@ -77,7 +77,6 @@ router.get('/:userId', async function(req, res, next) {
 
     // 한 폴더의 모든 단어에서 각 단어가 몇번이나 중복되는지 카운트해서 저장하는 배열을 만든다 => [ [{word: '단어1', count: 3}, {word: '단어2', count:1}], [] ] 형식의 결과를 반환한다 
     let dupWords = [];
-
     // 배열에 단어의 중복횟수와 내림차순으로 정리된 데이터를 저장한다    
     for (let i = 0; i < duplicatedWords.length; i++) {
       // 단어가 중복된 횟수를 카운트한다
