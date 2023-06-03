@@ -1,3 +1,24 @@
+let hideDefSwitch = document.getElementById('hideDefSwitch');
+let hideExSwitch = document.getElementById('hideExSwitch');
+
+hideDefSwitch.addEventListener('click', () => {
+
+    hideDefEx("definition");
+});
+
+hideExSwitch.addEventListener('click', () => {
+
+    hideDefEx("example");
+})
+
+// 해당 클래스이름을 입력하면 해당 요소의 visibility 를 hidden 으로 토글하는 함수
+function hideDefEx(className){
+    let hidedText = document.getElementsByClassName(`${className}`);
+    for(let i = 0; i < hidedText.length; i++){
+        hidedText[i].classList.toggle("hide");
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     toggleCollapse('folder-btn', 'collapse-horizontal');

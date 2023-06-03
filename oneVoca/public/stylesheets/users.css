@@ -10,7 +10,6 @@ html, body{
 nav{
     width: 10vw;
     height: 90vh;
-    background-color: blue;
 }
 
 section{
@@ -23,6 +22,28 @@ aside{
     width: 20vw;
     height: 90vh;
     background-color: green;
+}
+
+.logo-btn{
+    width: 100%;
+    height: 8vh;
+    border: none;
+    background-color: lightblue;
+    font-size: 40px;
+    font-weight: bold;
+    color: white; 
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#add-folder-btn{
+    border-radius: 50%;
+    border-width: 5px;
+}
+
+#account-btn{
+    background: none;
+    border: none;
+    font-size: 30px;
 }
 
 .word{
@@ -62,4 +83,19 @@ aside{
 .folder-list-group{
     height: 80vh;
     overflow-y: auto;
+    align-items: center;
+}
+
+#switch-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.form-switch label{
+    margin-left: 10px;
+    margin-right: 5vw;
+}
+
+.hide{
+    visibility: hidden;
 }

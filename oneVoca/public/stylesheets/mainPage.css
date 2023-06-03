@@ -4,3 +4,19 @@
     align-items: center;
     margin-bottom: 5%;
 }
+
+.logo-btn{
+    width: 100%;
+    height: 8vh;
+    border: none;
+    background-color: lightblue;
+    font-size: 40px;
+    font-weight: bold;
+    color: white; 
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.login-div{
+    display: flex;
+    justify-content: flex-end;
+}

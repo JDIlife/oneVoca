@@ -17,9 +17,12 @@ let tbody = wordsTable.children[1];
 
 let dropdownBtn = document.getElementById('dropdownBtn');
 
+let hideDef = document.getElementById('hide-def');
+let hideEx = document.getElementById('hide-ex');
+
 // 드롭다운 메뉴를 클릭하면 해당 드롭다운 메뉴의 텍스트로 드롭다운 버튼의 텍스트가 변경된다
 document.addEventListener('DOMContentLoaded', function() {
-    let dropdownItems = document.getElementsByClassName('dropdown-item');
+    let dropdownItems = document.getElementsByClassName('folder-dropdown-item');
   
     for (var i = 0; i < dropdownItems.length; i++) {
       dropdownItems[i].addEventListener('click', function(event) {
@@ -96,88 +99,83 @@ wordsInputBtn.addEventListener("click", wordsInput);
 
 // ================== 검색 결과 버튼 이벤트 설정 =================== //
 
-searchBtn.addEventListener('click', async () => {
+if(searchBtn != undefined){
+    searchBtn.addEventListener('click', async () => {
 
-    let resultList = await searchWords(wordsList);
+        let resultList = await searchWords(wordsList);
 
-    // form 생성
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "/store-result";
+        // form 생성
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/store-result";
 
-    // hidden input 추가
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "wordsList";
+        // hidden input 추가
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "wordsList";
 
 
-    // wordsList 배열의 두 번째 요소로 사용자가 titleInput 에 입력한 제목을 넣어준다
-    // if(titleInput.innerText.trim() == ''){
-    //     const date = new Date();
-        
-    //     let year = date.toLocaleDateString('default', {year: "numeric"});
-    //     let month = date.toLocaleDateString('default', {month: "2-digit"});
-    //     let day = date.toLocaleDateString('default', {day: "2-digit"});
-    //     let hour = date.toLocaleDateString('default', {hour: "2-digit"});
-    //     let minute = date.toLocaleDateString('default', {minute: "2-digit"});
+        wordsList.unshift(titleInput.value);
+        // wordsList 배열의 첫 번째 요소로 사용자가 지정한 폴더의 이름을 넣어준다
+        wordsList.unshift(dropdownBtn.innerText);
 
-    //     let today = year + "/" + month + "/" + day + "/" + " " + hour + ":"+ minute;
+        input.value = JSON.stringify(wordsList);
 
-    //     console.log(today);
-    //     wordsList.unshift(today);
-    // } 
-    wordsList.unshift(titleInput.value);
-    // wordsList 배열의 첫 번째 요소로 사용자가 지정한 폴더의 이름을 넣어준다
-    wordsList.unshift(dropdownBtn.innerText);
+        // form 에 input 추가
+        form.appendChild(input);
 
-    input.value = JSON.stringify(wordsList);
+        // form 을 body에 추가하고 submit
+        document.body.appendChild(form);
+        form.submit();
 
-    // form 에 input 추가
-    form.appendChild(input);
+        console.log(wordsList)
 
-    // form 을 body에 추가하고 submit
-    document.body.appendChild(form);
-    form.submit();
+        titleInput.value = null;
+    
 
-    console.log(wordsList)
+        // 입력된 단어 테이블 초기화
+        wordsList = [];
 
-    titleInput.value = null;
- 
+        // tbody 의 모든 행 삭제
+        let trs = document.querySelectorAll("tbody tr");
+        for(let i = 0; i < trs.length; i++){
+            trs[i].remove();
+        }
+        tr = document.createElement("tr");
 
-    // 입력된 단어 테이블 초기화
-    wordsList = [];
+    });
+}
 
-    // tbody 의 모든 행 삭제
-    let trs = document.querySelectorAll("tbody tr");
-    for(let i = 0; i < trs.length; i++){
-        trs[i].remove();
-    }
-    tr = document.createElement("tr");
 
-});
-
- // 단어를 검색기 위해 사전 api 를 호출해서 결과를 받는 함수
+// 단어를 검색기 위해 사전 api 를 호출해서 결과를 받는 함수
 async function searchWords(wordsList){
     let url = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
-    // 사용자가 삭제한 단어는 배열에서 제외한다
-    wordsList = wordsList.filter(word => word !== '');
 
     let resultList = new Array();
     // 전달받은 wordsList 안에 있는 단어들을 for 문으로 반복해서 api 요청해서 데이터를 받아온다
-    for (let word of wordsList){
-        const res = await fetch(url + word);
-        const data = await res.json();
-        if(data[0] == undefined){ // 만약 사용자가 오타를 냈거나, dictionary api 에 없는 단어를 검색했다면, resultList 에 추가하지 않고 건너뛴다
-            continue;
+    for (let [index, word] of wordsList.entries()){ 
+        if(index >= 1){ // 사용자가 입력한 title 을 제외하고 그 이후의 단어들을 검색한다
+
+            // 사용자가 삭제한 단어는 배열에서 제외한다
+            wordsList = wordsList.filter(word => word !== '');
+
+            const res = await fetch(url + word);
+            const data = await res.json();
+            if(data[0] == undefined){ // 만약 사용자가 오타를 냈거나, dictionary api 에 없는 단어를 검색했다면, resultList 에 추가하지 않고 건너뛴다
+                continue;
+            }
+            resultList.push(data[0]);
         }
-        resultList.push(data[0]);
     }
   
     return resultList;
  }
 
+
  // ============ pdf 다운로드 버튼 이벤트 설정 ============= //
 pdfDownloadBtn.addEventListener('click', async () => {
+    console.log(hideDef.checked)
+    console.log(hideEx.checked)
 
     // form 생성
     const form = document.createElement("form");
@@ -190,8 +188,10 @@ pdfDownloadBtn.addEventListener('click', async () => {
     input.name = "wordsList";
 
 
-    // wordsList 배열의 첫 번째 요소로 사용자가 titleInput 에 입력한 제목을 넣어준다
+    // wordsList 배열의 3번째 요소로 사용자가 titleInput 에 입력한 제목을 넣어준다
     wordsList.unshift(titleInput.value);
+    wordsList.unshift(hideEx.checked); // 2번째 요소로 hideEx 옵션을 넣어준다
+    wordsList.unshift(hideDef.checked); // 1번째 요소로 hideDef 옵션을 넣어준다
 
     input.value = JSON.stringify(wordsList);
 

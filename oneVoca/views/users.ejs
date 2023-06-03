@@ -7,10 +7,39 @@
   </head>
   <body>
     <header>
-        개인페이지 헤더
+      <button type="button" class="logo-btn" onclick="location.href='/'">
+        one__voca
+      </button>
+
         <div>
-          <button id="logoutBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login/logout'">logout</body>
+          <!-- Example single danger button -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-circle-user"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/login/logout">logout</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">회원 탈퇴</a></li>
+            </ul>
+          </div>
+          <!-- <button id="account-btn">
+            <i class="fa-solid fa-circle-user"></i>
+          </button>
+          <button id="logoutBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login/logout'">logout</body> -->
         </div>
+
+      <div id="switch-wrapper">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="hideDefSwitch">
+            <label class="form-check-label" for="hideDefSwitch">hideDef</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="hideExSwitch">
+            <label class="form-check-label" for="hideExSwitch">hideEx</label>
+        </div>
+      </div>
+
 
     </header>
 
@@ -18,8 +47,8 @@
         <nav>
             <div>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  add folder
+                <button id="add-folder-btn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <i class="fa-solid fa-plus"></i>
                 </button>
 
                 <!-- Modal -->
@@ -53,7 +82,7 @@
               <!-- 사용자가 가진 폴더의 수만큼 반복한다 -->
               <% for(let i = 0; i < folderRows.length; i++) { %>
                 <p>
-                  <button class="btn btn-primary folder-btn" type="button" data-bs-toggle="collapse" data-bs-target="#folder<%=folderRows[i].folder_id%>" aria-expanded="false" aria-controls="collapseWidthExample">
+                  <button class="btn btn-success folder-btn" type="button" data-bs-toggle="collapse" data-bs-target="#folder<%=folderRows[i].folder_id%>" aria-expanded="false" aria-controls="collapseWidthExample">
                     <%=folderRows[i].folder_name%>
                   </button>
                 </p>
@@ -147,6 +176,7 @@
             <% for(let i = 0; i < folderRows.length; i ++) { %>
               <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
                 <div class="card card-body" style="width: 20vw;">
+                  <p>자주 검색한 단어</p>
                   <ol class="list-group list-group-numbered">
                     <% let dupLen; %>
                     <% if(dupWords[i].length < 10) { %>
@@ -173,7 +203,7 @@
         </aside>
     </div>
     
-    
+    <script src="https://kit.fontawesome.com/de36200da7.js" crossorigin="anonymous"></script> 
     <script defer type="module" src="/javascripts/usersPage.js"></script>
     <!-- cdn 링크로 jsPDF 사용 -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>

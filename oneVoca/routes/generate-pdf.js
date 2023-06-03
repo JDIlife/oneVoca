@@ -18,7 +18,7 @@ router.post('/', async function(req, res) {
     doc.pipe(res); // 파일을 response 객체에 바로 전송
 
     // 사용자가 입력한 제목을 pdf 에 출력한다
-    const filename = wordsList[0];
+    const filename = wordsList[2];
     doc.fontSize(14).text(filename, {
         align: 'center'
     });
@@ -57,12 +57,17 @@ router.post('/', async function(req, res) {
                     let example = resultList[i].meanings[j].definitions[k].example; // 단어의 예문
         
                     // 한 품사가 가지고 있는 뜻과 예문을 출력한다
-                    doc.font('Helvetica').fontSize(12).text(`${k+1}. ` + definition);
-                    doc.moveDown(0.5);
-                    doc.fontSize(10).text(example, {
-                        indent: 15
-                    });
-                    doc.moveDown(2);
+                    if(wordsList[0] == false){ // hideDef 옵션이 꺼져있을 때 출력
+                        doc.font('Helvetica').fontSize(12).text(`${k+1}. ` + definition);
+                        doc.moveDown(0.5);
+                    }
+                    if(wordsList[1] == false){ // hideEx 옵션이 꺼져있을 때 출력
+                        doc.fontSize(10).text(example, {
+                            indent: 15
+                        });
+                        doc.moveDown(2);
+                    }
+
                 }
             }
         }
@@ -79,7 +84,7 @@ async function searchWords(wordsList){
     let resultList = new Array();
     // 전달받은 wordsList 안에 있는 단어들을 for 문으로 반복해서 api 요청해서 데이터를 받아온다
     for (let [index, word] of wordsList.entries()){ 
-        if(index >= 1){ // 사용자가 입력한 title 을 제외하고 그 이후의 단어들을 검색한다
+        if(index >= 3){ // 사용자가 입력한 title 을 제외하고 그 이후의 단어들을 검색한다
 
             // 사용자가 삭제한 단어는 배열에서 제외한다
             wordsList = wordsList.filter(word => word !== '');

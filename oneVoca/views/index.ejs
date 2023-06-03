@@ -7,17 +7,29 @@
   </head>
   <body>
     <header>
-      oneVoca
+      <button type="button" class="logo-btn" onclick="location.href='/'">
+        one__voca
+      </button>
     </header>
     <% if(!loggedIn) { %>
-    <div id="loginDiv">
+    <div class="login-div">
       <button id="signupBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/register'">sign up</body>
       <button id="loginBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login'">login</body>
     </div>
     <% } else { %>
-      <div>
+      <!-- <div class="login-div">
         <button id="myPageBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/users/<%= userId %>'">mypage</body>
         <button id="logoutBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login/logout'">logout</body>
+      </div> -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-circle-user"></i>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/users/<%= userId %>">mypage</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="/login/logout">logout</a></li>
+        </ul>
       </div>
     <% } %>
     <!-- 단어 검색창 -->
@@ -60,7 +72,7 @@
             <% if(loggedIn) { %>
               <ul class="dropdown-menu">
                   <% for(let i = 0; i < folderRows.length; i++) { %>
-                    <li><a class="dropdown-item" href="#"><%=folderRows[i].folder_name%></a></li>
+                    <li><a class="dropdown-item folder-dropdown-item" href="#"><%=folderRows[i].folder_name%></a></li>
                   <% } %>
                   
                 </ul>
@@ -74,28 +86,35 @@
           </div>
         </div>
         <div class="col">
-          <!-- 옵션 드롭다운 -->
-          <div class="Options">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <!-- option collapse -->
+          <p>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#option-collapse" aria-expanded="false" aria-controls="collapseExample">
               Options
             </button>
-            <ul class="dropdown-menu">
-            <div class="form-check-reverse form-switch">
-              <label class="form-check-label" for="flexSwitchCheckDefault">hide def</label>
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+          </p>
+          <div class="collapse" id="option-collapse">
+            <div class="card card-body">
+
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="hide-def">
+                <label class="form-check-label" for="hide-def">hide Def</label>
               </div>
-              <div class="form-check-reverse form-switch">
-                <label class="form-check-label" for="flexSwitchCheckDefault">hide example</label>
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="hide-ex">
+                <label class="form-check-label" for="hide-ex">hide Ex</label>
               </div>
-            </ul>
+
+            </div>
           </div>
         </div>
 
         <!-- 검색 버튼 -->
+        <% if(loggedIn) { %>
         <div class="col">
           <button id="searchBtn" type="button" class="btn btn-outline-primary">-></button>
         </div>
+        <% } %>
 
         <!-- pdf 다운로드 버튼 -->
         <div class="col">
@@ -106,6 +125,7 @@
 
     </div> 
     
+    <script src="https://kit.fontawesome.com/de36200da7.js" crossorigin="anonymous"></script> 
     <script defer type="module" src="/javascripts/mainPage.js"></script>
     <!-- cdn 링크로 jsPDF 사용 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
