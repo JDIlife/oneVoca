@@ -49,7 +49,8 @@ router.post('/', (req, res) => {
           return;
         }
 
-        res.status(200).send('Registration successful');
+        res.send("<script>alert('성공적으로 회원가입되었습니다.');location.href='/';</script>");
+
       });
     }); 
 

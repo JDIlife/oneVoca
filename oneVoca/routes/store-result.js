@@ -39,17 +39,17 @@ router.post('/', async function(req, res) {
         const folderId = folderRows[0].folder_id;
 
         // 사용자가 입력한 제목을 저장한다
-        const titleQuery = 'INSERT INTO result_title (title_name, folder_id) VALUE (?, ?)'; 
-        const [titleRows] = await connection.promise().query(titleQuery, [fileName, folderId]);
+        const titleQuery = 'INSERT INTO result_title (title_name, folder_id, member_id) VALUE (?, ?, ?)'; 
+        const [titleRows] = await connection.promise().query(titleQuery, [fileName, folderId, uid]);
 
         const titleId = titleRows.insertId;
 
         // 사용자의 단어 검색 결과를 저장한다
-        const wordsQuery = 'INSERT INTO result (title_id, word, result, folder_id) VALUE (?, ?, ?, ?) ';
+        const wordsQuery = 'INSERT INTO result (title_id, word, result, folder_id, member_id) VALUE (?, ?, ?, ?, ?) ';
         for(data of resultList){
             let word = data.word;
             let resultData = JSON.stringify(data);
-            await connection.promise().query(wordsQuery, [titleId, word, resultData, folderId]);
+            await connection.promise().query(wordsQuery, [titleId, word, resultData, folderId, uid]);
         }
 
         res.redirect('/');

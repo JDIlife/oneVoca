@@ -1,8 +1,53 @@
+body{
+    background-color: #F4F9FF;
+}
+
 #wordsAreaWrapper{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 5%;
+}
+
+#input-div{
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#wordInput{
+    background-color: #AED0FF;
+}
+
+#wordsArea{
+    width: 80vw;
+    height: 50vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: #AED0FF;
+}
+
+tbody tr{
+    display: flex;
+    justify-content: center;
+}
+
+tbody .td-style{
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #E6F4F1;
+    border-radius: 10px;
+    margin: 16px;
+}
+
+tbody .td-style .btn-close{
+    color: red;
+    margin: 5px;
+}
+
+.margin-btn{
+    margin: 10px;
 }
 
 .logo-btn{
@@ -19,4 +64,18 @@
 .login-div{
     display: flex;
     justify-content: flex-end;
+}
+
+#account-icon{
+    font-size: 1.6rem;
+}
+
+nav{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.hide{
+    visibility: hidden;
 }

@@ -11,8 +11,8 @@
         one__voca
       </button>
 
-        <div>
-          <!-- Example single danger button -->
+      <!-- 사용자 계정 관련 부분 -->
+        <div id="account-div">
           <div class="btn-group">
             <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-solid fa-circle-user"></i>
@@ -20,15 +20,12 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/login/logout">logout</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">회원 탈퇴</a></li>
+              <li id="withdrawal-li"><a class="dropdown-item">withdrawal</a></li>
             </ul>
           </div>
-          <!-- <button id="account-btn">
-            <i class="fa-solid fa-circle-user"></i>
-          </button>
-          <button id="logoutBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login/logout'">logout</body> -->
         </div>
 
+      <!-- hideDef, hideEx 스위치 부분 -->
       <div id="switch-wrapper">
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="hideDefSwitch">
@@ -40,15 +37,15 @@
         </div>
       </div>
 
-
     </header>
 
     <div id="wrapper">
         <nav>
-            <div>
-                <!-- Button trigger modal -->
+            <div id="modal-div">
+                <!-- 폴더 추가 모달창을 띄우는 버튼-->
                 <button id="add-folder-btn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <i class="fa-solid fa-plus"></i>
+                  <!-- <i class="fa-solid fa-plus"></i> -->
+                  <i class="fa-solid fa-folder-plus"></i>
                 </button>
 
                 <!-- Modal -->
@@ -77,20 +74,32 @@
                     </div>
                   </div>
                 </div>
+
             </div>
+
             <div class="list-group folder-list-group" id="folder">
+              <!-- 사용자 폴더 출력 부분 -->
               <!-- 사용자가 가진 폴더의 수만큼 반복한다 -->
               <% for(let i = 0; i < folderRows.length; i++) { %>
-                <p>
-                  <button class="btn btn-success folder-btn" type="button" data-bs-toggle="collapse" data-bs-target="#folder<%=folderRows[i].folder_id%>" aria-expanded="false" aria-controls="collapseWidthExample">
-                    <%=folderRows[i].folder_name%>
-                  </button>
-                </p>
+                <% if(i == 0) { %>
+                  <p>
+                    <button id="normal-folder" class="btn btn-info folder-btn" type="button" data-bs-toggle="collapse" data-bs-target="#folder<%=folderRows[i].folder_id%>" aria-expanded="false" aria-controls="collapseWidthExample">
+                      <%=folderRows[i].folder_name%>
+                    </button>
+                  </p>
+                <% } else { %>
+                  <p>
+                    <button class="btn btn-info folder-btn" type="button" data-bs-toggle="collapse" data-bs-target="#folder<%=folderRows[i].folder_id%>" aria-expanded="false" aria-controls="collapseWidthExample">
+                      <%=folderRows[i].folder_name%>
+                    </button>
+                  </p>
+                <% } %>
               <% } %>
             </div>
 
         </nav>
 
+        <!-- 사용자 폴더에 있는 title 출력 부분 -->
         <aside>
           <% for(let i = 0; i < folderRows.length; i++) { %>
             <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
@@ -111,8 +120,7 @@
           <% } %>
         </aside>
 
-            
-
+        <!-- 사용자 title에 있는 단어 검색 결과를 보여주는 부분 -->
         <section>
             <% for(let i = 0; i < folderRows.length; i++) { %>
               <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
@@ -166,12 +174,10 @@
                 </div>
               </div>
             <% } %>
-
-
-
          
         </section>
 
+        <!-- 한 폴더 내에서 자주 검색된 단어를 출력하는 부분 -->
         <aside>
             <% for(let i = 0; i < folderRows.length; i ++) { %>
               <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">

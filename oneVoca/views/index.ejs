@@ -11,102 +11,99 @@
         one__voca
       </button>
     </header>
-    <% if(!loggedIn) { %>
-    <div class="login-div">
-      <button id="signupBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/register'">sign up</body>
-      <button id="loginBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login'">login</body>
-    </div>
-    <% } else { %>
-      <!-- <div class="login-div">
-        <button id="myPageBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/users/<%= userId %>'">mypage</body>
-        <button id="logoutBtn" type="button" class="btn btn-outline-primary" onclick="location.href = '/login/logout'">logout</body>
-      </div> -->
-      <div class="btn-group">
-        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fa-solid fa-circle-user"></i>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/users/<%= userId %>">mypage</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="/login/logout">logout</a></li>
-        </ul>
+    <nav>
+      <% if(!loggedIn) { %>
+      <div class="login-div">
+        <button id="signupBtn" type="button" class="btn btn-outline-primary margin-btn" onclick="location.href = '/register'">sign up</body>
+        <button id="loginBtn" type="button" class="btn btn-outline-primary margin-btn" onclick="location.href = '/login'">login</body>
       </div>
-    <% } %>
-    <!-- 단어 검색창 -->
-    <div class="input-group mb-3">
-      <input id="wordInput" type="text" class="form-control" placeholder="insert word" aria-label="insert word" aria-describedby="basic-addon2">
-      <div class="input-group-append">
-        <button id="btn" class="btn btn-outline-secondary" type="button">Button</button>
-      </div>
-    </div>
-
-    <!-- 검색할 단어들을 모아놓은 div -->
-    <div id="wordsAreaWrapper">
-      <div id="wordsArea" style="width: 80%; height: 50vh; background-color: aqua;">
-        <table id="wordsTable" class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">1</th>
-              <th scope="col">2</th>
-              <th scope="col">3</th>
-              <th scope="col">4</th>
-              <th scope="col">5</th>
-            </tr>
-          </thead>
-          <tbody class="table-group-divider">
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="container text-center">
-      <div class="row row-cols-5">
-        <div class="col">
-          <!-- 폴더 드롭다운 -->
-          <div class="Folder">
-            <button class="btn btn-secondary dropdown-toggle" id="dropdownBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Folder 
-            </button>
-
-            <% if(loggedIn) { %>
-              <ul class="dropdown-menu">
-                  <% for(let i = 0; i < folderRows.length; i++) { %>
-                    <li><a class="dropdown-item folder-dropdown-item" href="#"><%=folderRows[i].folder_name%></a></li>
-                  <% } %>
-                  
-                </ul>
-              <% } %>
-
-          </div>
+      <% } else { %>
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-primary dropdown-toggle margin-btn" data-bs-toggle="dropdown" aria-expanded="false">
+            <i id="account-icon" class="fa-solid fa-circle-user"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/users/<%= userId %>">mypage</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/login/logout">logout</a></li>
+          </ul>
         </div>
-        <div class="col">
-          <div class="input-group mb-3">
-            <input id="titleInput" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-          </div>
+      <% } %>
+    </nav>
+
+    <section>
+
+      <!-- 단어 검색창 -->
+      <div id="input-div" class="input-group mb-3">
+        <input id="wordInput" type="text" class="form-control" placeholder="insert word" aria-label="insert word" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button id="word-btn" class="btn btn-outline-primary" type="button">Button</button>
         </div>
-        <div class="col">
-          <!-- option collapse -->
-          <p>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#option-collapse" aria-expanded="false" aria-controls="collapseExample">
-              Options
-            </button>
-          </p>
-          <div class="collapse" id="option-collapse">
-            <div class="card card-body">
+      </div>
 
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="hide-def">
-                <label class="form-check-label" for="hide-def">hide Def</label>
-              </div>
+      <!-- 검색할 단어들을 모아놓은 div -->
+      <div id="wordsAreaWrapper">
+        <div id="wordsArea">
+          <table id="wordsTable" class="table">
+            <thead>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="hide-ex">
-                <label class="form-check-label" for="hide-ex">hide Ex</label>
-              </div>
+    </section>
+
+    <aside>
+
+      <div class="container text-center">
+        <div class="row row-cols-5">
+          <div class="col">
+            <!-- 폴더 드롭다운 -->
+            <div class="Folder">
+              <button class="btn btn-secondary dropdown-toggle" id="dropdownBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Folder 
+              </button>
+
+              <% if(loggedIn) { %>
+                <ul class="dropdown-menu">
+                    <% for(let i = 0; i < folderRows.length; i++) { %>
+                      <li><a class="dropdown-item folder-dropdown-item" href="#"><%=folderRows[i].folder_name%></a></li>
+                    <% } %>
+                    
+                  </ul>
+                <% } %>
 
             </div>
           </div>
+          <div class="col">
+            <div class="input-group mb-3">
+              <input id="titleInput" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            </div>
+          </div>
+          <div class="col">
+            <!-- option collapse -->
+            <p>
+              <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#option-collapse" aria-expanded="false" aria-controls="collapseExample">
+                Options
+              </button>
+            </p>
+            <div class="collapse" id="option-collapse">
+              <div class="card card-body">
+
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="hide-def">
+                  <label class="form-check-label" for="hide-def">hide Def</label>
+                </div>
+
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="hide-ex">
+                  <label class="form-check-label" for="hide-ex">hide Ex</label>
+                </div>
+
+              </div>
+            </div>
         </div>
 
         <!-- 검색 버튼 -->
@@ -123,8 +120,10 @@
 
       </div>
 
-    </div> 
-    
+      </div> 
+
+    </aside>
+
     <script src="https://kit.fontawesome.com/de36200da7.js" crossorigin="anonymous"></script> 
     <script defer type="module" src="/javascripts/mainPage.js"></script>
     <!-- cdn 링크로 jsPDF 사용 -->

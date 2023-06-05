@@ -6,7 +6,7 @@ const signupBtn = document.getElementById("signupBtn");
 const loginBtn = document.getElementById("loginBtn");
 
 const input = document.getElementById("wordInput");
-const wordsInputBtn = document.getElementById("btn");
+const wordsInputBtn = document.getElementById("word-btn");
 const searchBtn = document.getElementById("searchBtn");
 const titleInput = document.getElementById("titleInput");
 const pdfDownloadBtn = document.getElementById("pdfDownloadBtn");
@@ -51,13 +51,13 @@ let wordsInput = () => {
 
     let td = document.createElement("td");
     td.innerHTML = `${input.value}<button type="button" class="btn-close" aria-label="Close"></button>`;
+    td.classList.add('td-style');
 
     tr.appendChild(td);
     tbody.appendChild(tr);
 
     // 만약 단어를 추가할 단어가 5의 배수번째라면 tr에 추가하고, 새로운 tr을 만들고 그것을 tr에 대입해서 새로운 행을 추가한다 
-    if(wordsList.length % 5 == 0){
-        // tr.appendChild(td);
+    if(wordsList.length % 8 == 0){
         tr = document.createElement("tr");
         console.log("add a row")
     }
@@ -73,10 +73,10 @@ let wordsInput = () => {
         let index = wordsList.indexOf(wordToDelete);
 
         // wordsList 배열에서 해당하는 위치의 단어를 공백으로 바꾼다 
-        // {나중에 삭제되는 단어를 공백이 아니라 특정 기호를 추가해서 변경한 다음, 사용자가 삭제를 취소하면 원래의 텍스트로 되돌리고, 아니라면 검색버튼 누를 때 해당 패턴을 가진 단어만 제외하고 검색하도록 추가할 수도 있다}
         wordsList.splice(index, 1, "")
 
         // 삭제하려는 td 의 내용을 빈 내용으로 만든다 (테이블 형식 유지)
+        tdToDelete.classList.add('hide');
         tdToDelete.innerHTML = ``
         console.log(wordsList);
     })
