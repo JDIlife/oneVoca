@@ -3,6 +3,53 @@ let normalFolder = document.getElementById('normal-folder');
 let hideDefSwitch = document.getElementById('hideDefSwitch');
 let hideExSwitch = document.getElementById('hideExSwitch');
 
+// let folderBtn = document.getElementsByClassName('folder-btn');
+let deleteFolderBtn = document.getElementsByClassName('delete-folder-btn');
+let deleteTitleBtn = document.getElementsByClassName('delete-title-btn');
+
+// 폴더 삭제 a 태그들에 폴더 삭제 이벤트를 붙인다
+for(let i = 0; i < deleteFolderBtn.length; i++){
+    deleteFolderBtn[i].addEventListener('click', (event) => {
+        deleteData.call(event.target, "folder");
+    });
+}
+
+// 제목 삭제 a 태그들에 제목+단어 삭제 이벤트를 붙인다
+for(let i = 0; i < deleteTitleBtn.length; i++){
+    deleteTitleBtn[i].addEventListener('click', (event) => {
+        console.log(this)
+        deleteData.call(event.target, "title");
+    });
+}
+
+// 사용자 데이터 삭제 동작을 요청하는 함수
+function deleteData(deleteObj){
+
+    let deleteConfirm = confirm('정말 삭제하시겠습니까?');
+
+    // 사용자가 폴더를 삭제한다면 form 에 folderId 를 담아서 /delete/folder 로 POST 요청한다
+    if(deleteConfirm){
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = `/delete/${deleteObj}`;
+
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = `${deleteObj}Id`;
+
+        // id 값을 input 에 넣는다
+        let idValue = this.getAttribute("data-bs-target");
+        input.value = idValue.substring(1);
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+
+    }
+
+}
+
+
 // 개인 페이지를 불러올 때 자동으로 사용자의 기본 폴더를 클릭하고 비활성화한다
 document.addEventListener('DOMContentLoaded', () => {
     normalFolder.click();
@@ -76,10 +123,9 @@ function toggleCollapse(btnClass, collapseClass){
 function withdrawal(){
     let withdrawal = confirm("정말로 회원탈퇴하시겠습니까?");
     if(withdrawal){
-        console.log("withdrawal")
         const form = document.createElement("form");
         form.method = "POST";
-        form.action = "/withdrawal";
+        form.action = "/delete/withdrawal";
 
         document.body.appendChild(form);
         form.submit();

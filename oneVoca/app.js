@@ -14,7 +14,7 @@ let registerRouter = require('./routes/register');
 let loginRouter = require('./routes/login');
 let storeRouter = require('./routes/store-result');
 let storeFolderRouter = require('./routes/store-folder');
-let withdrawalRouter = require('./routes/withdrawal');
+let deleteRouter = require('./routes/delete');
 
 
 var app = express();
@@ -60,7 +60,7 @@ app.use('/register', registerRouter); // 회원가입 라우팅 추가
 app.use('/login', loginRouter); // 로그인 라우팅 추가
 app.use('/store-result', storeRouter); // 검색 결과 저장 라우팅 추가
 app.use('/store-folder', storeFolderRouter); // 폴더 추가 저장 라우팅 추가
-app.use('/withdrawal', withdrawalRouter); // 회원탈퇴 라우팅 추가
+app.use('/delete', deleteRouter); // 회원탈퇴 라우팅 추가
 
 
 // catch 404 and forward to error handler

@@ -88,11 +88,22 @@
                     </button>
                   </p>
                 <% } else { %>
+                   
                   <p>
+                  <div class="btn-group">
                     <button class="btn btn-info folder-btn" type="button" data-bs-toggle="collapse" data-bs-target="#folder<%=folderRows[i].folder_id%>" aria-expanded="false" aria-controls="collapseWidthExample">
                       <%=folderRows[i].folder_name%>
                     </button>
+                    <button type="button" class="btn btn-sm btn-info  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item delete-folder-btn" href="#" data-bs-target="#<%=folderRows[i].folder_id%>">Delete</a></li>
+                    </ul>
+                  </div>
                   </p>
+                  
+
                 <% } %>
               <% } %>
             </div>
@@ -107,9 +118,19 @@
                 <% for(let j = 0; j < titleRowsResult[i].length; j++) { %>
                     <p>
                       <p></p>
-                      <button class="btn btn-primary title-collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=titleRowsResult[i][j].title_id%>" aria-expanded="false" aria-controls="collapseExample">
-                        <%=titleRowsResult[i][j].title_name%>
-                      </button>
+
+                      <div class="btn-group">
+                        <button class="btn btn-primary title-collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=titleRowsResult[i][j].title_id%>" aria-expanded="false" aria-controls="collapseExample">
+                          <%=titleRowsResult[i][j].title_name%>
+                        </button>
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                          <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item delete-title-btn" href="#" data-bs-target="#<%=titleRowsResult[i][j].title_id%>">Delete</a></li>
+                        </ul>
+                      </div>
+
                     </p>
                 <% } %>
 
