@@ -36,40 +36,45 @@ router.post('/withdrawal', async function(req, res) {
     res.redirect('/');
 });
 
-// 사용자가 선택한 폴더를 삭제한다
-router.post('/folder', async function(req,res){
+router.post('/data', async function(req, res){
 
     const userId = req.session.userId;
 
-    // form 으로 삭제할 폴더의 id 를 얻는다
-    const folderId = JSON.parse(req.body.folderId);
+    const uid = req.session.uid;
 
-    const deleteFolderQuery = 'DELETE FROM user_folder WHERE folder_id = ?';
-    connection.query(deleteFolderQuery, [folderId]);
+    const id = req.body.id;
 
-    res.redirect(`/users/${userId}`);
+    const deletedObj = req.body.deleteObj;
 
+    if(deletedObj == "title"){
+
+        // 사용자 검색결과 제목 삭제
+        const deleteTitleQuery = 'DELETE FROM result_title WHERE title_id = ? AND member_id = ?';
+        connection.query(deleteTitleQuery, [id, uid]);
+        
+        // 사용자 검색결과 단어 삭제
+        const deleteWordQuery = 'DELETE FROM result WHERE title_id = ? AND member_id = ?';
+        connection.query(deleteWordQuery, [id, uid]);
+
+
+    } else {
+
+        // 사용자 폴더 삭제
+        const deleteFolderQuery = 'DELETE FROM user_folder WHERE folder_id = ? AND member_id = ?';
+        connection.query(deleteFolderQuery, [id, uid]);
+
+        // 사용자 검색결과 제목 삭제
+        const deleteTitleQuery = 'DELETE FROM result_title WHERE folder_id = ? AND member_id = ?';
+        connection.query(deleteTitleQuery, [id, uid]);
+        
+        // 사용자 검색결과 단어 삭제
+        const deleteWordQuery = 'DELETE FROM result WHERE folder_id = ? AND member_id = ?';
+        connection.query(deleteWordQuery, [id, uid]);
+
+    }
+
+    res.redirect(`/users/${userId}`)
 });
-
-// 사용자가 선택한 검색결과 (제목+단어) 를 삭제한다
-router.post('/title', async function(req,res){
-    
-    const userId = req.session.userId;
-
-    // form 으로 삭제할 제목의 id 를 얻는다
-    const titleId = JSON.parse(req.body.titleId);
-
-    // 사용자 검색결과 제목 삭제
-    const deleteTitleQuery = 'DELETE FROM result_title WHERE title_id = ?';
-    connection.query(deleteTitleQuery, [titleId]);
-    
-    // 사용자 검색결과 단어 삭제
-    const deleteWordQuery = 'DELETE FROM result WHERE title_id = ?';
-    connection.query(deleteWordQuery, [titleId]);
-
-    res.redirect(`/users/${userId}`);
-});
-
 
 
 module.exports = router;

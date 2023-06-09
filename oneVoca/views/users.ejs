@@ -120,7 +120,7 @@
                       <p></p>
 
                       <div class="btn-group">
-                        <button class="btn btn-primary title-collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=titleRowsResult[i][j].title_id%>" aria-expanded="false" aria-controls="collapseExample">
+                        <button class="btn btn-primary title-collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#title<%=titleRowsResult[i][j].title_id%>" aria-expanded="false" aria-controls="collapseExample">
                           <%=titleRowsResult[i][j].title_name%>
                         </button>
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -147,7 +147,7 @@
               <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
                 <div class="card card-body word-div" style="width: 50vw;">
                   <% for(let j = 0; j < titleRowsResult[i].length; j++) { %>
-                    <div class="collapse word-collapse" id="collapse<%=titleRowsResult[i][j].title_id%>">
+                    <div class="collapse word-collapse" id="title<%=titleRowsResult[i][j].title_id%>">
                       <div class="card card-body">
 
 
@@ -157,7 +157,7 @@
 
                                 <% if(titleRowsResult[i][j].title_id == wordRowsResult[k][m].title_id) { %>
 
-                                  <h4 class="word" id="list-itme-<%= wordRowsResult[k][m].word_id %>">
+                                  <h4 class="word" id="list-item-<%= wordRowsResult[k][m].word_id %>">
                                     <%= wordRowsResult[k][m].word%>
                                   </h4>
                                 

@@ -17,33 +17,46 @@ for(let i = 0; i < deleteFolderBtn.length; i++){
 // 제목 삭제 a 태그들에 제목+단어 삭제 이벤트를 붙인다
 for(let i = 0; i < deleteTitleBtn.length; i++){
     deleteTitleBtn[i].addEventListener('click', (event) => {
-        console.log(this)
         deleteData.call(event.target, "title");
     });
 }
 
-// 사용자 데이터 삭제 동작을 요청하는 함수
 function deleteData(deleteObj){
 
     let deleteConfirm = confirm('정말 삭제하시겠습니까?');
 
-    // 사용자가 폴더를 삭제한다면 form 에 folderId 를 담아서 /delete/folder 로 POST 요청한다
+    let idValue = this.getAttribute("data-bs-target");
+    let id = idValue.substring(1);
+
+    // 사용자가 confirm 에서 확인했다면
     if(deleteConfirm){
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = `/delete/${deleteObj}`;
+        fetch(`/delete/data`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: id,
+                deleteObj: deleteObj
+            })
+        });
+    
+        // 삭제가 클릭된 버튼요소를 클라이언트에서 삭제한튼
+        let parentDiv = this.closest('.btn-group');
+        
+        if(parentDiv){
+            let preP = parentDiv.previousElementSibling
+            let nextP = parentDiv.nextElementSibling
+            preP.remove();
+            nextP.remove();
 
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = `${deleteObj}Id`;
-
-        // id 값을 input 에 넣는다
-        let idValue = this.getAttribute("data-bs-target");
-        input.value = idValue.substring(1);
-
-        form.appendChild(input);
-        document.body.appendChild(form);
-        form.submit();
+            parentDiv.remove();
+        }
+        
+        let deletedElements = document.querySelectorAll(`#${deleteObj}${id}`);
+        deletedElements.forEach((el) => {
+            el.remove();
+        })
 
     }
 
@@ -119,7 +132,7 @@ function toggleCollapse(btnClass, collapseClass){
     }
 }
 
-// withdrawal 기능
+// 회원탈퇴 기능
 function withdrawal(){
     let withdrawal = confirm("정말로 회원탈퇴하시겠습니까?");
     if(withdrawal){
