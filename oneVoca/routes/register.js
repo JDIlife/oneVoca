@@ -58,6 +58,18 @@ router.post('/', (req, res) => {
 
 });
 
+// id 중복 확인
+router.post('/redundancy', async (req, res) => {
+  let id = req.body.id;
+
+  const redundancyCheckQuery = 'SELECT EXISTS (SELECT 1 FROM user WHERE user_id = ?) AS ExistenceCheck';
+  let check = await connection.promise().query(redundancyCheckQuery, [id]);
+
+  // { ExistenceCheck: 0 } 같은 형태의 응답 전송
+  res.send(check[0][0]);
+  
+});
+
 // /register/cancel 로 get 요청이 들어오면 / (메인 페이지)로 리다이렉트한다
 router.get('/cancel', function(req, res, next){
   res.redirect('/');

@@ -3,41 +3,67 @@
     <head>
         <title>sign up page</title>
         <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/register.css">
     </head>
     <body>
-       <p>register page</p> 
-       <form method="post" action="/register">
-         <div class="mb-3">
-          <label for="userId" class="form-label">id</label>
-          <button type="button" class="btn btn-secondary">id 중복확인</button>
-          <input type="text" class="form-control" id="userId" name="userId">
-        </div>
+      <header>
+        <button type="button" class="logo-btn" onclick="location.href='/'">
+          one__voca
+        </button>
+        <p>회원가입</p> 
+      </header>
+      <section>
 
-        <div class="mb-3">
-          <label for="userPw" class="form-label">Password</label>
-          <input type="password" class="form-control" id="userPw" name="userPw">
-        </div>
+        <form method="post" action="/register">
+          <div class="mb-3">
+            <label for="userId" class="form-label">id</label>
+            <button type="button" class="btn btn-secondary" id="id-check-btn">id 중복확인</button>
+            <span id="id-check-span"></span>
+            <input type="hidden" name="idCheckInput" id="id-check-input" value="0">
+            <p class="info-p">id는 영어 소문자와 숫자로만 구성할수 있습니다.</p>
+            <input type="text" class="form-control" id="userId" name="userId">
+            <p class="alert-p" id="id-alert-p"></p>
+          </div>
 
-        <div class="mb-3">
-          <label for="userPwConfirm" class="form-label">Password 재입력</label>
-          <input type="password" class="form-control" id="userPwConfirm" name="userPwConfirm">
-        </div>
-        
-        <div class="mb-3">
-          <label for="userEmail" class="form-label">Email address</label>
-          <button type="button" class="btn btn-secondary">email 확인</button>
-          <input type="email" class="form-control" id="userEmail" aria-describedby="userEamil" name="userEmail">
-          <div id="emailHelp" class="form-text"></div>
-        </div>
+          <div class="mb-3">
+            <label for="userPw" class="form-label">Password</label>
+            <p class="info-p">pw는 8~25자 사이의 영어 대소문자 + 숫자 + 특수문자로 이루어져야합니다.</p>
+            <input type="password" class="form-control" id="userPw" name="userPw">
+            <p class="alert-p" id="pw-alert-p"></p>
+          </div>
 
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">사용 약관에 동의합니다</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" class="btn btn-primary" onclick="location.href = '/register/cancel'">Cancel</button>
-      </form>
-      <p>이미 계정을 가지고 계신가요? 지금 로그인하기</p>
+          <div class="mb-3">
+            <label for="userPwConfirm" class="form-label">Password 재입력</label>
+            <input type="password" class="form-control" id="userPwConfirm" name="userPwConfirm">
+          </div>
+          
+          <div class="mb-3">
+            <label for="userEmail" class="form-label">Email address</label>
+            <button type="button" class="btn btn-secondary" id="email-check-btn">email 확인</button>
+            <span id="email-check-span"></span>
+            <input type="hidden" name="emailCheckInput" id="email-check-input" value="0">
+            <input type="email" class="form-control" id="userEmail" aria-describedby="userEamil" name="userEmail">
+            <!-- <div id="emailHelp" class="form-text"></div> -->
+          </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="emailAgree">
+            <label class="form-check-label" for="exampleCheck1">이메일 수집에 동의합니다</label>
+          </div>
+          <div id="btn-wrapper">
+            <button type="submit" class="btn btn-primary" id="submit-btn" onclick="return checkFormValidation()">Submit</button>
+            <button type="button" class="btn btn-primary" onclick="location.href = '/register/cancel'">Cancel</button>
+          </div>
+
+        </form>
+      </section>
+
+      <footer>
+        <p>이미 계정을 가지고 계신가요? <a href="/login">지금 로그인하기</a></p>
+      </footer>
     </body>
+
+    <script src="https://kit.fontawesome.com/de36200da7.js" crossorigin="anonymous"></script> 
+    <script defer src="/javascripts/register.js"></script>
 
 </html>

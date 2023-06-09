@@ -1,0 +1,55 @@
+
+header{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.logo-btn{
+    width: 100%;
+    height: 8vh;
+    border: none;
+    background-color: lightblue;
+    font-size: 40px;
+    font-weight: bold;
+    color: white; 
+    font-family: 'Times New Roman', Times, serif;
+}
+
+section{
+    width: 50vw;
+    height: 70vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#btn-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.info-p{
+    color: #c7b6b5;
+    font-size: 0.9rem;
+}
+
+.alert-p{
+    color: #ff4238;
+}
+
+.confirm-p{
+    color: #3b41ff;
+}
+
+
+footer{
+    width: 80vh;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}

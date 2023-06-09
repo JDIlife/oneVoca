@@ -3,23 +3,35 @@
     <head>
         <title>login page</title>
         <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/login.css">
     </head>
     <body>
-        <p>login page</p>
-      <form method="post" action="/login">
-         <div class="mb-3">
-          <label for="userId" class="form-label">id</label>
-          <input type="text" class="form-control" id="userId" name="userId">
-        </div>
+      <header>
+        <button type="button" class="logo-btn" onclick="location.href='/'">
+          one__voca
+        </button>
+        <p>로그인</p>
+      </header>
+      <section>
+        <form method="post" action="/login">
+          <div class="mb-3">
+            <label for="userId" class="form-label">id</label>
+            <input type="text" class="form-control" id="userId" name="userId">
+          </div>
 
-        <div class="mb-3">
-          <label for="userPw" class="form-label">Password</label>
-          <input type="password" class="form-control" id="userPw" name="userPw">
-        </div>
+          <div class="mb-3">
+            <label for="userPw" class="form-label">Password</label>
+            <input type="password" class="form-control" id="userPw" name="userPw">
+          </div>
 
-        <button type="submit" class="btn btn-primary">Login</button>
-        <button type="button" class="btn btn-primary" onclick="location.href = '/login/cancel'">Cancel</button>
-      </form>
+          <div id="btn-wrapper">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="button" class="btn btn-primary" onclick="location.href = '/login/cancel'">Cancel</button>
+          </div>
+
+        </form>
+      </section>
+
     </body>
 
 </html>
