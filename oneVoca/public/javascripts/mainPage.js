@@ -102,8 +102,6 @@ wordsInputBtn.addEventListener("click", wordsInput);
 if(searchBtn != undefined){
     searchBtn.addEventListener('click', async () => {
 
-        let resultList = await searchWords(wordsList);
-
         // form 생성
         const form = document.createElement("form");
         form.method = "POST";
@@ -163,31 +161,6 @@ if(searchBtn != undefined){
 
     });
 }
-
-
-// 단어를 검색기 위해 사전 api 를 호출해서 결과를 받는 함수
-async function searchWords(wordsList){
-    let url = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
-
-    let resultList = new Array();
-    // 전달받은 wordsList 안에 있는 단어들을 for 문으로 반복해서 api 요청해서 데이터를 받아온다
-    for (let [index, word] of wordsList.entries()){ 
-        if(index >= 1){ // 사용자가 입력한 title 을 제외하고 그 이후의 단어들을 검색한다
-
-            // 사용자가 삭제한 단어는 배열에서 제외한다
-            wordsList = wordsList.filter(word => word !== '');
-
-            const res = await fetch(url + word);
-            const data = await res.json();
-            if(data[0] == undefined){ // 만약 사용자가 오타를 냈거나, dictionary api 에 없는 단어를 검색했다면, resultList 에 추가하지 않고 건너뛴다
-                continue;
-            }
-            resultList.push(data[0]);
-        }
-    }
-  
-    return resultList;
- }
 
 
  // ============ pdf 다운로드 버튼 이벤트 설정 ============= //

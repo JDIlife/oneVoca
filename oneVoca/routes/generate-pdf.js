@@ -86,8 +86,9 @@ async function searchWords(wordsList){
     for (let [index, word] of wordsList.entries()){ 
         if(index >= 3){ // 사용자가 입력한 title 을 제외하고 그 이후의 단어들을 검색한다
 
-            // 사용자가 삭제한 단어는 배열에서 제외한다
-            wordsList = wordsList.filter(word => word !== '');
+            if(word == ""){ // 사용자가 삭제한 단어는 건너 뛴다
+                continue;
+            }
 
             const res = await fetch(url + word);
             const data = await res.json();
