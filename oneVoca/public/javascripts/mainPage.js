@@ -116,8 +116,13 @@ if(searchBtn != undefined){
 
 
         wordsList.unshift(titleInput.value);
+
         // wordsList 배열의 첫 번째 요소로 사용자가 지정한 폴더의 이름을 넣어준다
-        wordsList.unshift(dropdownBtn.innerText);
+        if(dropdownBtn.innerText.trim() === "Folder"){ // 사용자가 폴더를 선택하지 않았을 때
+            wordsList.unshift("normal"); // 기본 폴더를 넣는다
+        } else { // 사용자가 폴더를 선택했을 때
+            wordsList.unshift(dropdownBtn.innerText);
+        }
 
         input.value = JSON.stringify(wordsList);
 
