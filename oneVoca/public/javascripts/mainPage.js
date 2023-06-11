@@ -114,10 +114,23 @@ if(searchBtn != undefined){
         input.type = "hidden";
         input.name = "wordsList";
 
+        // wordsList 배열의 두 번째 요소로 검색 제목을 넣어준다
+        if(titleInput.value.trim().length == 0){ // 사용자가 제목을 입력하지 않았을 때
+            let date = new Date();
+            let year = date.getFullYear();
+            let month = ('0' + (date.getMonth() + 1)).slice(-2);
+            let day = ('0' + date.getDate()).slice(-2);
+            let hour = ('0' + date.getHours()).slice(-2);
+            let min = ('0' + date.getMinutes()).slice(-2);
 
-        wordsList.unshift(titleInput.value);
+            let nowDate = year + "/" + month + "/" + day + "-" + hour + ":" + min
+            
+            wordsList.unshift(nowDate);
+        } else { // 사용자가 제목을 입력했을 때
+            wordsList.unshift(titleInput.value);
+        }
 
-        // wordsList 배열의 첫 번째 요소로 사용자가 지정한 폴더의 이름을 넣어준다
+        // wordsList 배열의 첫 번째 요소로 폴더의 이름을 넣어준다
         if(dropdownBtn.innerText.trim() === "Folder"){ // 사용자가 폴더를 선택하지 않았을 때
             wordsList.unshift("normal"); // 기본 폴더를 넣는다
         } else { // 사용자가 폴더를 선택했을 때
