@@ -44,7 +44,6 @@
             <div id="modal-div">
                 <!-- 폴더 추가 모달창을 띄우는 버튼-->
                 <button id="add-folder-btn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <!-- <i class="fa-solid fa-plus"></i> -->
                   <i class="fa-solid fa-folder-plus"></i>
                 </button>
 
@@ -58,7 +57,7 @@
                       </div>
 
                       <!-- 사용자가 생성한 폴더를 데이터베이스에 저장하기 위한 form -->
-                      <form action="/store-folder" method="post" id="folderForm">
+                      <!-- <form action="/store-folder" method="post" id="folderForm"> -->
                         <div class="modal-body">
                           <div class="input-group input-group-lg">
                             <input type="text" class="form-control" id="folderNameInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="folderName">
@@ -67,9 +66,9 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary" id="folderSubmitBtn">Save</button>
+                          <button type="button" class="btn btn-primary" id="folderSubmitBtn">Save</button>
                         </div>
-                      </form>
+                      <!-- </form> -->
 
                     </div>
                   </div>
@@ -111,7 +110,7 @@
         </nav>
 
         <!-- 사용자 폴더에 있는 title 출력 부분 -->
-        <aside>
+        <aside id="folderTitleAside">
           <% for(let i = 0; i < folderRows.length; i++) { %>
             <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
               <div class="card card-body title-collapse" style="width: 20vw;">
@@ -208,7 +207,7 @@
         </section>
 
         <!-- 한 폴더 내에서 자주 검색된 단어를 출력하는 부분 -->
-        <aside>
+        <aside id="dupWordAside">
             <% for(let i = 0; i < folderRows.length; i ++) { %>
               <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
                 <div class="card card-body" style="width: 20vw;">
