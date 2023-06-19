@@ -239,14 +239,11 @@ function toggleCollapse(collapseClass, disabledBtn){
     // disabledBtn : 이전에 비활성화된 버튼이 존재하는지 확인
     // disabledBtn !== this : 이전에 비활성화된 버튼이 현재 클릭된 버튼과 다른 버튼인지 확인
     if(disabledBtn && disabledBtn !== this){ // 이전의 disabledBtn 이 존재하고, disabledBtn 이 현재 클릭된 버튼과 다른 버튼일 때 참
-        // 이게 실행이 안되는군
-        console.log("if 1 passed")
         disabledBtn.disabled = false;
     }
 
     // 페이지 로드로 인해서 normal 폴더가 비활성화되어있으면 다시 활성화 시킨다 (다른 폴더 버튼을 눌렀을 때)
     if(normalFolder.disabled == true){
-        console.log("if 2 passed")
         normalFolder.disabled = false;
     }
 
@@ -265,6 +262,58 @@ function toggleCollapse(collapseClass, disabledBtn){
 
     return disabledBtn;
 
+}
+
+// ================================= pdf 다운로드 =========================== //
+
+let pdfDownloadBtn = document.getElementsByClassName('pdf-download-btn');
+
+for(let i = 0; i < pdfDownloadBtn.length; i++){
+    pdfDownloadBtn[i].addEventListener('click', function() {
+
+        let wordsLiList = [];
+        let pdfWordsList = [];
+
+        // 1. generate-pdf 로 post 할 pdfWordsList 를 만든다
+        // 클릭된 해당 pdf 버튼이 가지고 있는 id 를 추출해서 
+        let pdfBtnId = this.getAttribute("id").substr(7);
+
+        // ul 에 있는 li 들을 모아서 wordsList 를 만든다
+        wordsLiList = document.getElementById(`pdf-${pdfBtnId}`).getElementsByTagName("li");
+
+        for(let i = 0; i < wordsLiList.length; i++){
+            pdfWordsList.push(wordsLiList[i].textContent);
+        }
+        pdfWordsList.unshift(hideExSwitch.checked);
+        pdfWordsList.unshift(hideDefSwitch.checked);
+
+        
+        // 2. generate-pdf 로 post 요청을 하고 기존의 배열을 초기화한다.
+        // form 생성
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/generate-pdf";
+
+        // hidden input 추가
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "wordsList";
+
+        input.value = JSON.stringify(pdfWordsList);
+
+        // form 에 input 추가
+        form.appendChild(input);
+
+        // form 을 body에 추가하고 submit
+        document.body.appendChild(form);
+        form.submit();
+
+
+        // wordsList 를 빈 배열로 다시 초기화한다
+        wordsLiList = [];
+        pdfWordsList = [];
+
+    });
 }
 
 // ================================== 회원탈퇴 ============================== //

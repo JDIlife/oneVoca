@@ -165,8 +165,6 @@ if(searchBtn != undefined){
 
  // ============ pdf 다운로드 버튼 이벤트 설정 ============= //
 pdfDownloadBtn.addEventListener('click', async () => {
-    console.log(hideDef.checked)
-    console.log(hideEx.checked)
 
     // form 생성
     const form = document.createElement("form");
@@ -194,5 +192,15 @@ pdfDownloadBtn.addEventListener('click', async () => {
     form.submit();
 
     titleInput.value = null;
+
+    // 입력된 단어 테이블 초기화
+    wordsList = [];
+
+    // tbody 의 모든 행 삭제
+    let trs = document.querySelectorAll("tbody tr");
+    for(let i = 0; i < trs.length; i++){
+        trs[i].remove();
+    }
+    tr = document.createElement("tr");
      
 })

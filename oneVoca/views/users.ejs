@@ -147,6 +147,18 @@
                     <div class="collapse word-collapse" id="title<%=titleRowsResult[i][j].title_id%>">
                       <div class="card card-body">
 
+                            <!-- 사용자 기존 검색 결과의 pdf 를 출력하는 기능을 위한 ul -->
+                            <ul id="pdf-<%= titleRowsResult[i][j].title_id %>" style="display: none;"> 
+                              <li><%= titleRowsResult[i][j].title_name %></li>
+                              <% for(let x = 0; x < wordRowsResult.length; x++) { %>
+                                <% for(let y = 0; y < wordRowsResult[x].length; y++) { %>
+                                  <% if(titleRowsResult[i][j].title_id == wordRowsResult[x][y].title_id) { %>
+                                    <li><%= wordRowsResult[x][y].word %></li>
+                                  <% } %>
+                                <% } %>
+                              <% } %>
+                            </ul>
+
 
                             <% for(let k = 0; k < wordRowsResult.length; k++) { %>
 
@@ -192,6 +204,11 @@
                               <% } %>
 
                             <% } %>
+
+                            <!-- pdf 다운로드 버튼 -->
+                            <button type="button" class="btn btn-outline-primary pdf-download-btn" id="pdfWord<%=titleRowsResult[i][j].title_id%>">
+                              <i class="fa-solid fa-file-arrow-down"></i>
+                            </button>
 
 
                       </div>
