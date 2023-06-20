@@ -111,7 +111,7 @@
         <aside id="folderTitleAside">
           <% for(let i = 0; i < folderRows.length; i++) { %>
             <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
-              <div class="card card-body title-collapse" style="width: 20vw;">
+              <div class="card card-body title-collapse" style="width: 15vw;">
                 <% for(let j = 0; j < titleRowsResult[i].length; j++) { %>
                       <p></p>
 
@@ -142,7 +142,7 @@
         <section>
             <% for(let i = 0; i < folderRows.length; i++) { %>
               <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
-                <div class="card card-body word-div" style="width: 50vw;">
+                <div class="card card-body word-div" style="width: 55vw;">
                   <% for(let j = 0; j < titleRowsResult[i].length; j++) { %>
                     <div class="collapse word-collapse" id="title<%=titleRowsResult[i][j].title_id%>">
                       <div class="card card-body">
@@ -225,7 +225,7 @@
         <aside id="dupWordAside">
             <% for(let i = 0; i < folderRows.length; i ++) { %>
               <div class="collapse collapse-horizontal" id="folder<%=folderRows[i].folder_id%>">
-                <div class="card card-body" style="width: 20vw;">
+                <div class="card card-body" style="width: 15vw;">
                   <p>자주 검색한 단어</p>
                   <ol class="list-group list-group-numbered">
                     <% let dupLen; %>

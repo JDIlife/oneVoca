@@ -16,7 +16,7 @@ let folderTitleAside = document.getElementById('folderTitleAside');
 
 // 폴더 버튼과 폴더 이름 입력 input 에 이벤트 부착
 folderSubmitBtn.addEventListener('click', addFolderBtn);
-folderNameInput.addEventListener('keydown', (event) => {
+folderNameInput.addEventListener('keypress', (event) => {
     if(event.key == 'Enter'){
         addFolderBtn.call(event.target);
     }

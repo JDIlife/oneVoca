@@ -12,18 +12,18 @@ body{
 }
 
 nav{
-    width: 10vw;
-    height: 90vh;
+    width: 15vw;
+    height: 85vh;
 }
 
 section{
-    width: 50vw;
-    height: 90vh;
+    width: 55vw;
+    height: 85vh;
 }
 
 aside{
-    width: 20vw;
-    height: 90vh;
+    width: 15vw;
+    height: 85vh;
 }
 
 .logo-btn{
@@ -40,6 +40,9 @@ aside{
 #account-div{
     display: flex;
     justify-content: flex-end;
+
+    position: absolute;
+    right: 1rem;
 }
 
 #account-div button i{
@@ -86,7 +89,7 @@ aside{
 }
 
 .word-div{
-    height: 90vh;
+    height: 85vh;
     overflow-y: auto;
 }
 
@@ -95,12 +98,12 @@ aside{
 }
 
 .title-collapse{
-    height: 90vh;
+    height: 85vh;
     overflow-y: auto;
 }
 
 .folder-list-group{
-    height: 80vh;
+    height: 75vh;
     overflow-y: auto;
     align-items: center;
 }
@@ -108,6 +111,9 @@ aside{
 #switch-wrapper{
     display: flex;
     justify-content: center;
+
+    height: 6vh;
+    align-items: center;
 }
 
 .form-switch label{
