@@ -87,7 +87,7 @@ function addFolderBtn() {
         folderWordDiv.classList.add("collapse-horizontal", "collapse");
         folderWordDiv.id = `folder${data.newFolderId}`;
         folderWordDiv.innerHTML = `
-            <div class="card card-body word-div" style="width: 50vw;">
+            <div class="card card-body word-div" style="width: 55vw;">
             </div>
         
                                 `;
